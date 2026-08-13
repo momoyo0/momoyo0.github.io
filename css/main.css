@@ -1213,7 +1213,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffa64e;
+  background: #6f01d4;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -3856,6 +3856,85 @@ body {
   margin: 18px 0 0 !important;
   min-height: 3.2em;
 }
+.content .post-detail > .page-hero {
+  box-sizing: border-box;
+  display: flex !important;
+  flex-direction: column;
+  height: 42dvh;
+  justify-content: center;
+  max-height: 36rem;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+.content .post-detail > .page-hero .page-hero-title {
+  font-family: "寒蝉全圆体", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+.content .post-detail > .page-hero .page-hero-meta br {
+  display: none;
+}
+.content .post-detail > .page-hero .page-hero-meta {
+  align-items: center;
+  display: flex;
+  font-family: "寒蝉全圆体", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  justify-content: center;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  margin-top: 10px !important;
+}
+.content .post-detail > .page-hero .page-hero-meta .post-meta-item {
+  align-items: center;
+  display: inline-flex;
+  gap: 4px;
+  white-space: nowrap;
+}
+.content .post-detail > .page-hero .page-hero-meta .post-meta-item-icon {
+  align-items: center;
+  display: inline-flex;
+  height: 1em;
+  justify-content: center;
+  margin-right: 0;
+  width: 1em;
+}
+.content .post-detail > .page-hero .page-hero-meta .post-meta-item-icon i {
+  font-family: "Font Awesome 5 Free";
+  font-size: 1em;
+  font-style: normal;
+  font-weight: 900;
+}
+.content .post-detail > .page-hero .page-hero-meta .fa-calendar::before,
+.content .post-detail > .page-hero .page-hero-meta .fa-calendar-check::before {
+  content: "\f073";
+}
+.content .post-detail > .page-hero .page-hero-meta .fa-file-word::before {
+  content: "\f5ad";
+}
+.content .post-detail > .page-hero .page-hero-meta .fa-clock::before {
+  content: "\f017";
+}
+.content .post-detail > .page-hero .page-hero-meta time {
+  border-bottom: 0;
+  cursor: inherit;
+}
+.content .post-detail > .page-hero #busuanzi_container_page_pv {
+  order: 10;
+}
+.content .post-detail > .page-hero #busuanzi_container_page_pv .post-meta-item-icon {
+  font-size: 16px;
+}
+.content .post-detail > .page-hero #busuanzi_container_page_pv .post-meta-item-icon i {
+  font-weight: 400;
+}
+.content .post-detail > .page-hero .page-hero-meta .post-meta-item + .post-meta-item::before {
+  display: none;
+}
 @media (min-width: 992px) {
   .content .page-hero {
     --page-hero-title-size: 42px;
@@ -3865,6 +3944,21 @@ body {
   }
   .content .page-hero .page-hero-meta {
     margin-top: 22px !important;
+  }
+  .content .post-detail > .page-hero .page-hero-meta {
+    flex-wrap: nowrap;
+    min-height: 1.6em;
+    white-space: nowrap;
+  }
+}
+@media (max-width: 768px) {
+  .content .post-detail > .page-hero .page-hero-title {
+    font-size: 24px;
+    line-height: 1.333333;
+  }
+  .content .post-detail > .page-hero .page-hero-meta {
+    font-size: 12px;
+    line-height: 16px;
   }
 }
 .posts-expand .post-meta {
