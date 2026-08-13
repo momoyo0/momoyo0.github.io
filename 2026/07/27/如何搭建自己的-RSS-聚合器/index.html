@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"momoyo.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="正文前言随着 AI 时代对我们生活的全面渗透，微信公众号、视频号等信息流中标注着 AI生成 字样的内容占比愈来愈多。如此，拥有一个纯净的，内容质量可控的信息流，在AI泛滥的当今，是十分有必要的。由此，笔者在近2周中，在网上检索并整理出一套完整的信息聚合流程。在此记录并分享出来，愿在互联网嘈杂的信息中，保有自己的精神自留地。  写在前面  本文目前处于暂时搁置状态，如有需要，可移步至其他文章获取搭建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何搭建自己的 RSS 聚合器">
+<meta property="og:url" content="https://momoyo.dev/2026/07/27/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84-RSS-%E8%81%9A%E5%90%88%E5%99%A8/index.html">
+<meta property="og:site_name" content="桃源乡">
+<meta property="og:description" content="正文前言随着 AI 时代对我们生活的全面渗透，微信公众号、视频号等信息流中标注着 AI生成 字样的内容占比愈来愈多。如此，拥有一个纯净的，内容质量可控的信息流，在AI泛滥的当今，是十分有必要的。由此，笔者在近2周中，在网上检索并整理出一套完整的信息聚合流程。在此记录并分享出来，愿在互联网嘈杂的信息中，保有自己的精神自留地。  写在前面  本文目前处于暂时搁置状态，如有需要，可移步至其他文章获取搭建">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-07-27T14:03:21.000Z">
+<meta property="article:modified_time" content="2026-08-13T10:35:27.821Z">
+<meta property="article:author" content="momoyo">
+<meta property="article:tag" content="rss">
+<meta property="article:tag" content="自建">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://momoyo.dev/2026/07/27/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84-RSS-%E8%81%9A%E5%90%88%E5%99%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+
+<script>
+(() => {
+  const storageKey = 'theme';
+  const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  const root = document.documentElement;
+
+  const readPreference = () => {
+    try {
+      const value = window.localStorage.getItem(storageKey);
+      return value === 'dark' || value === 'light' ? value : null;
+    } catch (error) {
+      return null;
+    }
+  };
+
+  const resolveTheme = preference => preference || (darkQuery.matches ? 'dark' : 'light');
+
+  const applyTheme = (theme, preference = readPreference()) => {
+    const isDark = theme === 'dark';
+    root.classList.toggle('dark', isDark);
+    root.classList.toggle('light', !isDark);
+    root.dataset.theme = theme;
+    root.dataset.themePreference = preference || 'system';
+    root.style.colorScheme = theme;
+
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) themeColor.setAttribute('content', isDark ? '#21252b' : '#f8fafc');
+
+    window.dispatchEvent(new CustomEvent('theme:change', {
+      detail: { theme, preference: preference || 'system' }
+    }));
+  };
+
+  const setPreference = preference => {
+    try {
+      if (preference === 'dark' || preference === 'light') {
+        window.localStorage.setItem(storageKey, preference);
+      } else {
+        window.localStorage.removeItem(storageKey);
+        preference = null;
+      }
+    } catch (error) {
+      // The selected theme still applies for this page when storage is blocked.
+    }
+    applyTheme(resolveTheme(preference), preference);
+  };
+
+  const preference = readPreference();
+  applyTheme(resolveTheme(preference), preference);
+
+  const followSystem = () => {
+    if (!readPreference()) applyTheme(resolveTheme(null), null);
+  };
+  if (darkQuery.addEventListener) darkQuery.addEventListener('change', followSystem);
+  else if (darkQuery.addListener) darkQuery.addListener(followSystem);
+
+  window.addEventListener('storage', event => {
+    if (event.key !== storageKey && event.key !== null) return;
+    const nextPreference = readPreference();
+    applyTheme(resolveTheme(nextPreference), nextPreference);
+  });
+
+  window.BlogTheme = {
+    getPreference: readPreference,
+    getTheme: () => root.dataset.theme || resolveTheme(readPreference()),
+    setPreference,
+    toggle: () => setPreference(root.dataset.theme === 'dark' ? 'light' : 'dark'),
+    followSystem: () => setPreference(null)
+  };
+})();
+</script>
+
+  <title>如何搭建自己的 RSS 聚合器 | 桃源乡</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">桃源乡</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+    
+        
+    <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+
+        
+    
+    
+    <li class="menu-item menu-item-articles menu-item-dropdown">
+      <details class="menu-dropdown">
+        <summary class="menu-dropdown-summary"><i class="fa fa-book fa-fw"></i>
+          文章
+          <i class="fa fa-angle-down menu-dropdown-caret" aria-hidden="true"></i>
+        </summary>
+        <ul class="menu-dropdown-list">
+              
+  <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+
+
+              
+  <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+
+
+              
+  <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+
+
+        </ul>
+      </details>
+    </li>
+
+        
+    <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+
+
+    
+  </ul>
+</nav>
+
+
+
+<button class="theme-toggle" type="button" aria-label="切换深浅色模式" aria-pressed="false">
+  <span class="theme-toggle-icon theme-toggle-sun" aria-hidden="true">
+    <svg viewBox="0 0 24 24" focusable="false">
+      <circle cx="12" cy="12" r="3.5"></circle>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path>
+    </svg>
+  </span>
+  <span class="theme-toggle-icon theme-toggle-moon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" focusable="false">
+      <path d="M20.2 15.2A8.6 8.6 0 0 1 8.8 3.8 8.6 8.6 0 1 0 20.2 15.2Z"></path>
+    </svg>
+  </span>
+  <span class="theme-toggle-label" aria-live="polite">切换深浅色模式</span>
+</button>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+
+  
+  
+  
+
+  
+  <div class="post-detail" itemscope itemtype="http://schema.org/Article">
+    
+  <header class="post-header page-hero">
+    <h1 class="post-title page-hero-title" itemprop="name headline">如何搭建自己的 RSS 聚合器
+</h1>
+    <div class="post-meta page-hero-meta">
+          <span class="post-meta-item">
+            <span class="post-meta-item-icon">
+              <i class="far fa-calendar"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+
+            <time title="创建时间：2026-07-27 22:03:21" itemprop="dateCreated datePublished" datetime="2026-07-27T22:03:21+08:00">2026-07-27</time>
+          </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar-check"></i>
+              </span>
+              <span class="post-meta-item-text">更新于</span>
+              <time title="修改时间：2026-08-13 18:35:27" itemprop="dateModified" datetime="2026-08-13T18:35:27+08:00">2026-08-13</time>
+            </span>
+          <span class="post-meta-item">
+            <span class="post-meta-item-icon">
+              <i class="far fa-folder"></i>
+            </span>
+            <span class="post-meta-item-text">分类于</span>
+              <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+              </span>
+                ，
+              <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                <a href="/categories/%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">服务器</span></a>
+              </span>
+          </span>
+
+        <br>
+          <span class="post-meta-item" title="本文字数">
+            <span class="post-meta-item-icon">
+              <i class="far fa-file-word"></i>
+            </span>
+              <span class="post-meta-item-text">本文字数：</span>
+            <span>4.3k</span>
+          </span>
+          <span class="post-meta-item" title="阅读时长">
+            <span class="post-meta-item-icon">
+              <i class="far fa-clock"></i>
+            </span>
+              <span class="post-meta-item-text">阅读时长 &asymp;</span>
+            <span>8 分钟</span>
+          </span>
+
+    </div>
+  </header>
+
+
+
+  <article class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://momoyo.dev/2026/07/27/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84-RSS-%E8%81%9A%E5%90%88%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="momoyo">
+      <meta itemprop="description" content="桃之夭夭，灼灼其华">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="桃源乡">
+    </span>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+
+
+
+
+<nav class="post-breadcrumb" aria-label="文章分类路径">
+  <div class="post-breadcrumb-inner">
+    <span class="post-breadcrumb-home">
+      <i class="fa fa-home" aria-hidden="true"></i>
+      <a class="post-breadcrumb-link" href="/">首页</a>
+    </span>
+      <span class="post-breadcrumb-separator" aria-hidden="true"><i class="fa fa-angle-right"></i></span>
+      <a class="post-breadcrumb-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+      <span class="post-breadcrumb-separator" aria-hidden="true"><i class="fa fa-angle-right"></i></span>
+      <a class="post-breadcrumb-link is-current" href="/categories/%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/" aria-current="page">服务器</a>
+  </div>
+</nav>
+  <section class="post-summary" aria-labelledby="post-summary-title">
+    <div class="post-summary-heading">
+      <span id="post-summary-title" class="post-summary-label">文章摘要</span>
+    </div>
+    <div class="post-summary-content" itemprop="description">本文介绍了如何通过 docker-compose 搭建自己的 RSS 信息流，并实现多设备访问</div>
+  </section>
+
+
+      
+        <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>随着 AI 时代对我们生活的全面渗透，微信公众号、视频号等信息流中标注着 AI生成 字样的内容占比愈来愈多。如此，拥有一个纯净的，内容质量可控的信息流，在AI泛滥的当今，是十分有必要的。由此，笔者在近2周中，在网上检索并整理出一套完整的信息聚合流程。在此记录并分享出来，愿在互联网嘈杂的信息中，保有自己的精神自留地。</p>
+<blockquote class="callout callout-warning" data-callout="warn">
+<div class="callout-title"><span class="callout-icon" aria-hidden="true"><i class="fa fa-exclamation-triangle fa-fw"></i></span><span>写在前面</span></div>
+<div class="callout-content">
+<p>本文目前处于暂时搁置状态，如有需要，可移步至其他文章获取搭建教程</p>
+</div>
+</blockquote>
+<p>RSSHub + Miniflux + NewsFlash</p>
+<span id="more"></span>
+
+<p>介绍：</p>
+<p>RSSHub</p>
+<blockquote>
+<p>“万物皆可 RSS ”。你可以将其当作一个信息的转换器，透过社团编写的爬取规则，RSSHub 可以将互联网上呈现的各种信息，整合为一个干净的 RSS 订阅连接。</p>
+</blockquote>
+<p>Miniflux</p>
+<blockquote>
+<p>Miniflux 是一款 RSS 聚合器，它可以将你订阅的 RSS 流统合，并在不同的客户端同步 RSS 流、阅读状态以及收藏情况。如此，仅需搭建一个后端，你便可以在不同设备上，如电脑端的 NewsFlash 以及 iPad 上的 News 进行同步访问。 </p>
+</blockquote>
+<h3 id="自部署项目"><a href="#自部署项目" class="headerlink" title="自部署项目"></a>自部署项目</h3><p>本文提到的项目，皆可通过 docker-compose 工具部署。且后续的配置流程存在一定重合，于是笔者仅在部分项目详细交代部署流程，之后的可以进行类推，故不重复论述。</p>
+<h4 id="安装docker-compose"><a href="#安装docker-compose" class="headerlink" title="安装docker-compose"></a>安装docker-compose</h4><p>docker compose 介绍：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.docker.com/compose/">Docker Compose</a>是另一种Docker引擎的CLI前端,它使用<code>compose.yaml</code><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/YAML" title="wikipedia:YAML">YAML</a>文件来指定容器的属性,这样就可以不使用附带指令的<code>docker run</code>脚本了。如果你需要经常设置或者使用具有复杂选项的容器,可能使用docker-compose更为方便。你需要<a target="_blank" rel="noopener" href="https://wiki.archlinuxcn.org/wiki/Install" title="Install">安装</a> <a target="_blank" rel="noopener" href="https://archlinux.org/packages/?name=docker-compose">docker-compose</a>包来使用。（来源：archlinux wiki）</p>
+</blockquote>
+<hr>
+<h5 id="archlinux-安装-Docker"><a href="#archlinux-安装-Docker" class="headerlink" title="archlinux 安装 Docker"></a>archlinux 安装 Docker</h5><p>对于 archlinux 平台，直接使用 pacman 安装即可。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -Syu</span><br><span class="line"><span class="built_in">sudo</span> pacman -S docker docker-compose</span><br></pre></td></tr></table></figure>
+
+<p>启动并设置开机自启：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now docker.service</span><br></pre></td></tr></table></figure>
+
+<p>验证：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> docker run hello-world</span><br><span class="line">docker compose version</span><br></pre></td></tr></table></figure>
+
+<h5 id="Ubuntu-安装-Docker-Docker-Compose"><a href="#Ubuntu-安装-Docker-Docker-Compose" class="headerlink" title="Ubuntu 安装 Docker + Docker Compose"></a>Ubuntu 安装 Docker + Docker Compose</h5><p>安装依赖并添加 Docker 官方仓库：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install -y ca-certificates curl</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> install -m 0755 -d /etc/apt/keyrings</span><br><span class="line"><span class="built_in">sudo</span> curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> a+r /etc/apt/keyrings/docker.asc</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/apt/sources.list.d/docker.sources &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string">Types: deb</span></span><br><span class="line"><span class="string">URIs: https://download.docker.com/linux/ubuntu</span></span><br><span class="line"><span class="string">Suites: $(. /etc/os-release &amp;&amp; echo &quot;$&#123;UBUNTU_CODENAME:-$VERSION_CODENAME&#125;&quot;)</span></span><br><span class="line"><span class="string">Components: stable</span></span><br><span class="line"><span class="string">Architectures: $(dpkg --print-architecture)</span></span><br><span class="line"><span class="string">Signed-By: /etc/apt/keyrings/docker.asc</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br></pre></td></tr></table></figure>
+
+<p>安装 Docker Engine 和 Compose 插件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span><br></pre></td></tr></table></figure>
+
+<p>启动并设置开机自启：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now docker</span><br></pre></td></tr></table></figure>
+
+<h5 id="加入-docker-用户组"><a href="#加入-docker-用户组" class="headerlink" title="加入 docker 用户组"></a>加入 docker 用户组</h5><p>Docker 默认通过 root 拥有的 Unix socket 工作；官方文档建议将用户加入 <code>docker</code> 组，但也明确提醒：<code>docker</code> 组基本等同于 root 级权限。<br><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/linux-postinstall/">https://docs.docker.com/engine/install/linux-postinstall/</a></p>
+<p>*注意，此步操作存在风险，建议阅读官方文档，明确风险后再继续。</p>
+<p>Ubuntu &#x2F; Arch 都可以这样做：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> usermod -aG docker <span class="variable">$USERnewgrp</span> docker</span><br></pre></td></tr></table></figure>
+
+<p>然后测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<h5 id="Windows-平台安装-Docker"><a href="#Windows-平台安装-Docker" class="headerlink" title="Windows 平台安装 Docker"></a>Windows 平台安装 Docker</h5><p>蛤，你说你要在 Windows 平台下安装 docker , 认真的吗？<del>建议速速移除 Windows Server 并拥抱 Linux。</del></p>
+<h4 id="部署-RSSHub"><a href="#部署-RSSHub" class="headerlink" title="部署 RSSHub"></a>部署 RSSHub</h4><h5 id="docker-安装-RSSHub"><a href="#docker-安装-RSSHub" class="headerlink" title="docker 安装 RSSHub"></a>docker 安装 RSSHub</h5><p>（此处参考了官方 <a target="_blank" rel="noopener" href="https://docs.rsshub.app/deploy/">wiki</a>）<br>我们使用 docker-compose 进行安装：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /opt/rsshub</span><br><span class="line">wget https://raw.githubusercontent.com/DIYgod/RSSHub/master/docker-compose.yml</span><br></pre></td></tr></table></figure>
+
+<p>查看并更改配置：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vi docker-compose.yml</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># [此处省略]</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">diygod/rsshub</span> <span class="comment"># or ghcr.io/diygod/rsshub</span></span><br><span class="line">        <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;1200:1200&#x27;</span> <span class="comment"># 注意，此处先开放端口，后续配置反代时修改</span></span><br><span class="line">        <span class="attr">environment:</span></span><br><span class="line">            <span class="attr">NODE_ENV:</span> <span class="string">production</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># [此处省略]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>启动：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker compose up -d</span><br></pre></td></tr></table></figure>
+
+<p> 在浏览器打开<code>http://{Server IP}:1200</code> 并确认是否部署成功。</p>
+<h5 id="配置-RSSHub"><a href="#配置-RSSHub" class="headerlink" title="配置 RSSHub"></a>配置 RSSHub</h5><p>此处通过 nginx 反向代理将 RSSHub 服务转发，防止源端口泄露造成风险。并将其绑定到域名上，通过 Let’s Encrypt 获取免费的 SSL 证书。</p>
+<p>下面把域名统一写成：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">rss.example.com</span><br></pre></td></tr></table></figure>
+
+<p>你需要替换成自己的域名。</p>
+<h6 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h6><p>在域名 DNS 后台添加记录：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">类型: A主机记录: rss记录值: 你的服务器公网 IPv4</span><br></pre></td></tr></table></figure>
+
+<p>如果你有 IPv6，也可以加：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">类型: AAAA主机记录: rss记录值: 你的服务器公网 IPv6</span><br></pre></td></tr></table></figure>
+
+<p>确认解析是否生效：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ping rss.example.com</span><br></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dig rss.example.com</span><br></pre></td></tr></table></figure>
+
+
+<h6 id="安装-Nginx"><a href="#安装-Nginx" class="headerlink" title="安装 Nginx"></a>安装 Nginx</h6><ul>
+<li>Ubuntu &#x2F; Debian</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install -y nginx</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now nginx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Arch Linux</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -Syu</span><br><span class="line"><span class="built_in">sudo</span> pacman -S nginx</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now nginx</span><br></pre></td></tr></table></figure>
+
+<p>Arch 的 Nginx 主配置文件通常在 <code>/etc/nginx/nginx.conf</code>，配置集中放在 <code>/etc/nginx/</code> 下。</p>
+<h6 id="配置-Nginx-反向代理"><a href="#配置-Nginx-反向代理" class="headerlink" title="配置 Nginx 反向代理"></a>配置 Nginx 反向代理</h6><p>创建配置：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/nginx/sites-available/rsshub.conf</span><br></pre></td></tr></table></figure>
+
+<p>写入：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">listen</span> [::]:<span class="number">80</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">server_name</span> rss.example.com;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">access_log</span> /var/log/nginx/rsshub.access.log;</span><br><span class="line">    <span class="attribute">error_log</span> /var/log/nginx/rsshub.<span class="literal">error</span>.log;</span><br><span class="line"></span><br><span class="line">    <span class="section">location</span> / &#123;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://127.0.0.1:1200;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">proxy_connect_timeout</span> <span class="number">60s</span>;</span><br><span class="line">        <span class="attribute">proxy_send_timeout</span> <span class="number">60s</span>;</span><br><span class="line">        <span class="attribute">proxy_read_timeout</span> <span class="number">60s</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启用站点：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -s /etc/nginx/sites-available/rsshub.conf /etc/nginx/sites-enabled/rsshub.conf</span><br></pre></td></tr></table></figure>
+
+<p>测试并重载：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nginx -t</span><br><span class="line"><span class="built_in">sudo</span> systemctl reload nginx</span><br></pre></td></tr></table></figure>
+
+<h6 id="防火墙放行-80-和-443"><a href="#防火墙放行-80-和-443" class="headerlink" title="防火墙放行 80 和 443"></a>防火墙放行 80 和 443</h6><p>如果你使用 UFW：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow 80/tcp</span><br><span class="line"><span class="built_in">sudo</span> ufw allow 443/tcp</span><br><span class="line"><span class="built_in">sudo</span> ufw reload</span><br></pre></td></tr></table></figure>
+
+<p>如果使用云服务器，不要忘记在云厂商安全组里放行哦（这东西排查了我一个小时 orz）：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TCP 80</span><br><span class="line">TCP 443</span><br></pre></td></tr></table></figure>
+
+<p>然后访问：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://rss.example.com</span><br></pre></td></tr></table></figure>
+
+<p>此时应该能看到 RSSHub 页面。</p>
+<h6 id="安装-Certbot"><a href="#安装-Certbot" class="headerlink" title="安装 Certbot"></a>安装 Certbot</h6><ul>
+<li>Ubuntu &#x2F; Debian：推荐 Snap 安装</li>
+</ul>
+<p>Certbot 官方当前仍推荐使用 Snap 方式安装 Certbot，并且 <code>certbot --nginx</code> 可以自动获取证书并修改 Nginx 配置。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install -y snapd</span><br><span class="line"><span class="built_in">sudo</span> snap install core</span><br><span class="line"><span class="built_in">sudo</span> snap refresh core</span><br><span class="line"><span class="built_in">sudo</span> apt remove -y certbot || <span class="literal">true</span></span><br><span class="line"><span class="built_in">sudo</span> snap install --classic certbot</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -sf /snap/bin/certbot /usr/bin/certbot</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Arch Linux</li>
+</ul>
+<p>Arch 官方仓库提供 <code>certbot</code> 和 <code>certbot-nginx</code>，其中 <code>certbot-nginx</code> 是 Certbot 的 Nginx 插件。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S certbot certbot-nginx</span><br></pre></td></tr></table></figure>
+
+<h6 id="申请并配置-SSL-证书"><a href="#申请并配置-SSL-证书" class="headerlink" title="申请并配置 SSL 证书"></a>申请并配置 SSL 证书</h6><p>执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> certbot --nginx -d rss.example.com</span><br></pre></td></tr></table></figure>
+
+<p>过程中一般会让你输入邮箱、同意协议。</p>
+<p>完成后访问：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://rss.example.com</span><br></pre></td></tr></table></figure>
+
+<h6 id="配置-RSSHub-的-apikey"><a href="#配置-RSSHub-的-apikey" class="headerlink" title="配置 RSSHub 的 apikey"></a>配置 RSSHub 的 apikey</h6><p>&#x3D; &#x3D;  待完成…</p>
+<h4 id="部署-Miniflux"><a href="#部署-Miniflux" class="headerlink" title="部署 Miniflux"></a>部署 Miniflux</h4><h3 id="客户端推荐"><a href="#客户端推荐" class="headerlink" title="客户端推荐"></a>客户端推荐</h3><h5 id="Linux-平台"><a href="#Linux-平台" class="headerlink" title="Linux 平台"></a>Linux 平台</h5><ul>
+<li>NewsFlash</li>
+</ul>
+<h5 id="IOS-平台"><a href="#IOS-平台" class="headerlink" title="IOS 平台"></a>IOS 平台</h5><ul>
+<li>NetNewsWire</li>
+<li>Feeeed</li>
+</ul>
+<p>写到一半，发现有同类型的、写的非常不错的博客文章<br><a target="_blank" rel="noopener" href="https://yfi.moe/post/rsshub-miniflux">https://yfi.moe/post/rsshub-miniflux</a></p>
+<p>笔者认为自己还需要在精进一些文笔，尤其是博客方面，所以本文暂时搁置，以待后续更新。<br>（我写的真的是又臭又长啊…）</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>momoyo
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://momoyo.dev/2026/07/27/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84-RSS-%E8%81%9A%E5%90%88%E5%99%A8/" title="如何搭建自己的 RSS 聚合器">https://momoyo.dev/2026/07/27/如何搭建自己的-RSS-聚合器/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/rss/" rel="tag"># rss</a>
+              <a href="/tags/%E8%87%AA%E5%BB%BA/" rel="tag"># 自建</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/06/13/MyBlogSetup/" rel="prev" title="博客由来">
+      <i class="fa fa-chevron-left"></i> 博客由来
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  </div>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E6%96%87"><span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE"><span class="nav-text">自部署项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85docker-compose"><span class="nav-text">安装docker-compose</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#archlinux-%E5%AE%89%E8%A3%85-Docker"><span class="nav-text">archlinux 安装 Docker</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Ubuntu-%E5%AE%89%E8%A3%85-Docker-Docker-Compose"><span class="nav-text">Ubuntu 安装 Docker + Docker Compose</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5-docker-%E7%94%A8%E6%88%B7%E7%BB%84"><span class="nav-text">加入 docker 用户组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Windows-%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85-Docker"><span class="nav-text">Windows 平台安装 Docker</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2-RSSHub"><span class="nav-text">部署 RSSHub</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#docker-%E5%AE%89%E8%A3%85-RSSHub"><span class="nav-text">docker 安装 RSSHub</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-RSSHub"><span class="nav-text">配置 RSSHub</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90"><span class="nav-text">域名解析</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Nginx"><span class="nav-text">安装 Nginx</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Nginx-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-text">配置 Nginx 反向代理</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99%E6%94%BE%E8%A1%8C-80-%E5%92%8C-443"><span class="nav-text">防火墙放行 80 和 443</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Certbot"><span class="nav-text">安装 Certbot</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%94%B3%E8%AF%B7%E5%B9%B6%E9%85%8D%E7%BD%AE-SSL-%E8%AF%81%E4%B9%A6"><span class="nav-text">申请并配置 SSL 证书</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-RSSHub-%E7%9A%84-apikey"><span class="nav-text">配置 RSSHub 的 apikey</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2-Miniflux"><span class="nav-text">部署 Miniflux</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A8%E8%8D%90"><span class="nav-text">客户端推荐</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux-%E5%B9%B3%E5%8F%B0"><span class="nav-text">Linux 平台</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#IOS-%E5%B9%B3%E5%8F%B0"><span class="nav-text">IOS 平台</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="momoyo"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">momoyo</p>
+  <div class="site-description" itemprop="description">桃之夭夭，灼灼其华</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/momoyo0" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;momoyo0" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:blog@momoyo.dev" title="E-Mail → mailto:blog@momoyo.dev"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">momoyo</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">4k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">8 分钟</span>
+</div>
+  <div class="powered-by">
+<!--由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动 -->
+  </div>
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("06/10/2026 10:00:00"); //此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒.";
+    }
+setInterval("createtime()",250);
+</script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-scroll.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+<script>
+(() => {
+  if (!window.NexT || !NexT.utils || typeof NexT.utils.getAffixParam !== 'function') return;
+
+  const nativeGetAffixParam = NexT.utils.getAffixParam;
+  const desktop = window.matchMedia('(min-width: 992px)');
+  const documentTop = element => {
+    let top = 0;
+    for (let node = element; node; node = node.offsetParent) top += node.offsetTop;
+    return top;
+  };
+
+  NexT.utils.getAffixParam = function() {
+    const nativeParam = nativeGetAffixParam.call(this);
+    if (!desktop.matches) return nativeParam;
+
+    const main = document.querySelector('.main-inner');
+    const sidebar = document.querySelector('.sidebar');
+    if (!main || !sidebar) return nativeParam;
+
+    const sidebarOffset = CONFIG.sidebar.offset || 12;
+    const header = document.querySelector('.header');
+    const headerHeight = header && !header.classList.contains('hide') ? header.offsetHeight : 0;
+    const stickyTop = sidebarOffset + headerHeight;
+    document.documentElement.style.setProperty('--toc-sticky-top', stickyTop + 'px');
+    const mainTop = documentTop(main);
+    const postBody = document.querySelector(
+      '.content.posts-expand article.post-block > .post-body[itemprop="articleBody"]'
+    );
+    const pageHero = document.querySelector('.content .page-hero');
+    let pagePanel = null;
+    if (pageHero) {
+      const content = pageHero.closest('.content');
+      const wrapper = pageHero.parentElement === content ? pageHero : pageHero.parentElement;
+      const candidate = wrapper && wrapper.nextElementSibling;
+      if (candidate && candidate.matches('.post-block')) pagePanel = candidate;
+    }
+    const hasPostToc = CONFIG.page && CONFIG.page.isPost && document.querySelector('.post-toc');
+    let normalTop = mainTop + stickyTop;
+    if (hasPostToc && postBody) normalTop = documentTop(postBody);
+    else if (pagePanel) normalTop = documentTop(pagePanel);
+
+    sidebar.style.marginTop = Math.max(0, normalTop - mainTop) + 'px';
+
+    return {
+      top: Math.max(0, normalTop - stickyTop),
+      bottom: nativeParam.bottom
+    };
+  };
+
+  let resizeFrame;
+  const refreshAffix = () => {
+    if (!window.Affix || !Affix.element) return;
+    const previousTop = Affix.element.getBoundingClientRect().top;
+    Affix.element.style.top = '';
+    // Recalculate from a normal affixed state. Setting `affixed` to null
+    // makes NexT's initializer use the whole viewport as collider height;
+    // on short index pages that incorrectly selects affix-bottom and sends
+    // the overview/avatar card to the end of the document.
+    Affix.element.classList.remove('affix-top', 'affix-bottom');
+    Affix.element.classList.add('affix');
+    Affix.affixed = false;
+    Affix.unpin = null;
+    Affix.pinnedOffset = null;
+    Affix.offset = NexT.utils.getAffixParam();
+    Affix.checkPosition();
+
+    // Changing header visibility can move the affix threshold across the
+    // current scroll position. Smooth that class switch instead of jumping
+    // between the natural and fixed positions.
+    const nextTop = Affix.element.getBoundingClientRect().top;
+    const delta = previousTop - nextTop;
+    if (Math.abs(delta) > .5 && Affix.element.animate) {
+      if (Affix.element.tocAlignAnimation) Affix.element.tocAlignAnimation.cancel();
+      Affix.element.tocAlignAnimation = Affix.element.animate([
+        { transform: 'translateY(' + delta + 'px)' },
+        { transform: 'translateY(0)' }
+      ], {
+        duration: 300,
+        easing: 'ease'
+      });
+    }
+  };
+  const scheduleRefresh = () => {
+    window.cancelAnimationFrame(resizeFrame);
+    resizeFrame = window.requestAnimationFrame(refreshAffix);
+  };
+
+  window.addEventListener('load', scheduleRefresh, { once: true });
+  window.addEventListener('resize', scheduleRefresh);
+  window.addEventListener('header:heightchange', scheduleRefresh);
+  window.addEventListener('header:visibilitychange', scheduleRefresh);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleRefresh);
+})();
+</script>
+<script src="/js/theme-toggle.js"></script>
+<script src="/js/menu-dropdown.js"></script>
+
+</body>
+</html>

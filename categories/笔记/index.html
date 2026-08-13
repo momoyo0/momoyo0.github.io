@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 8.1.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"momoyo.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="桃之夭夭，灼灼其华">
+<meta property="og:type" content="website">
+<meta property="og:title" content="桃源乡">
+<meta property="og:url" content="https://momoyo.dev/categories/%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="桃源乡">
+<meta property="og:description" content="桃之夭夭，灼灼其华">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="momoyo">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://momoyo.dev/categories/%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+
+<script>
+(() => {
+  const storageKey = 'theme';
+  const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  const root = document.documentElement;
+
+  const readPreference = () => {
+    try {
+      const value = window.localStorage.getItem(storageKey);
+      return value === 'dark' || value === 'light' ? value : null;
+    } catch (error) {
+      return null;
+    }
+  };
+
+  const resolveTheme = preference => preference || (darkQuery.matches ? 'dark' : 'light');
+
+  const applyTheme = (theme, preference = readPreference()) => {
+    const isDark = theme === 'dark';
+    root.classList.toggle('dark', isDark);
+    root.classList.toggle('light', !isDark);
+    root.dataset.theme = theme;
+    root.dataset.themePreference = preference || 'system';
+    root.style.colorScheme = theme;
+
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) themeColor.setAttribute('content', isDark ? '#21252b' : '#f8fafc');
+
+    window.dispatchEvent(new CustomEvent('theme:change', {
+      detail: { theme, preference: preference || 'system' }
+    }));
+  };
+
+  const setPreference = preference => {
+    try {
+      if (preference === 'dark' || preference === 'light') {
+        window.localStorage.setItem(storageKey, preference);
+      } else {
+        window.localStorage.removeItem(storageKey);
+        preference = null;
+      }
+    } catch (error) {
+      // The selected theme still applies for this page when storage is blocked.
+    }
+    applyTheme(resolveTheme(preference), preference);
+  };
+
+  const preference = readPreference();
+  applyTheme(resolveTheme(preference), preference);
+
+  const followSystem = () => {
+    if (!readPreference()) applyTheme(resolveTheme(null), null);
+  };
+  if (darkQuery.addEventListener) darkQuery.addEventListener('change', followSystem);
+  else if (darkQuery.addListener) darkQuery.addListener(followSystem);
+
+  window.addEventListener('storage', event => {
+    if (event.key !== storageKey && event.key !== null) return;
+    const nextPreference = readPreference();
+    applyTheme(resolveTheme(nextPreference), nextPreference);
+  });
+
+  window.BlogTheme = {
+    getPreference: readPreference,
+    getTheme: () => root.dataset.theme || resolveTheme(readPreference()),
+    setPreference,
+    toggle: () => setPreference(root.dataset.theme === 'dark' ? 'light' : 'dark'),
+    followSystem: () => setPreference(null)
+  };
+})();
+</script>
+
+  <title>笔记 分类下的笔记 | 桃源乡</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">桃源乡</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+    
+        
+    <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+
+        
+    
+    
+    <li class="menu-item menu-item-articles menu-item-dropdown">
+      <details class="menu-dropdown">
+        <summary class="menu-dropdown-summary"><i class="fa fa-book fa-fw"></i>
+          文章
+          <i class="fa fa-angle-down menu-dropdown-caret" aria-hidden="true"></i>
+        </summary>
+        <ul class="menu-dropdown-list">
+              
+  <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+
+
+              
+  <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+
+
+              
+  <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+
+
+        </ul>
+      </details>
+    </li>
+
+        
+    <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+
+
+    
+  </ul>
+</nav>
+
+
+
+<button class="theme-toggle" type="button" aria-label="切换深浅色模式" aria-pressed="false">
+  <span class="theme-toggle-icon theme-toggle-sun" aria-hidden="true">
+    <svg viewBox="0 0 24 24" focusable="false">
+      <circle cx="12" cy="12" r="3.5"></circle>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path>
+    </svg>
+  </span>
+  <span class="theme-toggle-icon theme-toggle-moon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" focusable="false">
+      <path d="M20.2 15.2A8.6 8.6 0 0 1 8.8 3.8 8.6 8.6 0 1 0 20.2 15.2Z"></path>
+    </svg>
+  </span>
+  <span class="theme-toggle-label" aria-live="polite">切换深浅色模式</span>
+</button>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content taxonomy taxonomy-detail taxonomy-category-detail">
+            
+  
+  <header class="post-header page-hero">
+    <h1 class="post-title page-hero-title">笔记 分类下的笔记</h1>
+    <div class="post-meta page-hero-meta">
+    </div>
+  </header>
+
+
+  <div class="post-block taxonomy-panel taxonomy-category-panel">
+    <div class="cosine-taxonomy taxonomy-category-post-list">
+      <h2 class="shoka-decoration-circle taxonomy-category-summary group relative px-6 py-5 text-2xl font-bold has-children">
+        <a class="taxonomy-home-link dashed-border" href="/">首页</a>
+        <span class="taxonomy-summary-separator text-muted-foreground">/</span>
+        <span class="taxonomy-category-summary-name text-muted-foreground">笔记</span>
+        <span class="taxonomy-category-summary-label text-muted-foreground">分类</span>
+      </h2>
+
+      <div class="taxonomy-category-content">
+          <div class="category-first-level-container taxonomy-category-first-level">
+            
+      <h3 class="shoka-decoration-circle taxonomy-category-title taxonomy-category-title-level-1 group relative px-7-5 py-5 text-lg font-bold">
+        <a class="taxonomy-category-link dashed-border" href="/categories/%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>
+        <span class="taxonomy-category-count">(1)</span>
+      </h3>
+
+          </div>
+          <div class="category-second-level-container taxonomy-category-posts">
+              <p class="shoka-decoration-circle taxonomy-category-post group relative px-6 py-2 text-base">
+                <span class="taxonomy-category-post-date text-muted-foreground mr-2 text-xs">2026-07-27</span>
+                <a class="taxonomy-category-post-link dashed-border" href="/2026/07/27/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84-RSS-%E8%81%9A%E5%90%88%E5%99%A8/">如何搭建自己的 RSS 聚合器</a>
+              </p>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="momoyo"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">momoyo</p>
+  <div class="site-description" itemprop="description">桃之夭夭，灼灼其华</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/momoyo0" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;momoyo0" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:blog@momoyo.dev" title="E-Mail → mailto:blog@momoyo.dev"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">momoyo</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">4k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">8 分钟</span>
+</div>
+  <div class="powered-by">
+<!--由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动 -->
+  </div>
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("06/10/2026 10:00:00"); //此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒.";
+    }
+setInterval("createtime()",250);
+</script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-scroll.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+<script>
+(() => {
+  if (!window.NexT || !NexT.utils || typeof NexT.utils.getAffixParam !== 'function') return;
+
+  const nativeGetAffixParam = NexT.utils.getAffixParam;
+  const desktop = window.matchMedia('(min-width: 992px)');
+  const documentTop = element => {
+    let top = 0;
+    for (let node = element; node; node = node.offsetParent) top += node.offsetTop;
+    return top;
+  };
+
+  NexT.utils.getAffixParam = function() {
+    const nativeParam = nativeGetAffixParam.call(this);
+    if (!desktop.matches) return nativeParam;
+
+    const main = document.querySelector('.main-inner');
+    const sidebar = document.querySelector('.sidebar');
+    if (!main || !sidebar) return nativeParam;
+
+    const sidebarOffset = CONFIG.sidebar.offset || 12;
+    const header = document.querySelector('.header');
+    const headerHeight = header && !header.classList.contains('hide') ? header.offsetHeight : 0;
+    const stickyTop = sidebarOffset + headerHeight;
+    document.documentElement.style.setProperty('--toc-sticky-top', stickyTop + 'px');
+    const mainTop = documentTop(main);
+    const postBody = document.querySelector(
+      '.content.posts-expand article.post-block > .post-body[itemprop="articleBody"]'
+    );
+    const pageHero = document.querySelector('.content .page-hero');
+    let pagePanel = null;
+    if (pageHero) {
+      const content = pageHero.closest('.content');
+      const wrapper = pageHero.parentElement === content ? pageHero : pageHero.parentElement;
+      const candidate = wrapper && wrapper.nextElementSibling;
+      if (candidate && candidate.matches('.post-block')) pagePanel = candidate;
+    }
+    const hasPostToc = CONFIG.page && CONFIG.page.isPost && document.querySelector('.post-toc');
+    let normalTop = mainTop + stickyTop;
+    if (hasPostToc && postBody) normalTop = documentTop(postBody);
+    else if (pagePanel) normalTop = documentTop(pagePanel);
+
+    sidebar.style.marginTop = Math.max(0, normalTop - mainTop) + 'px';
+
+    return {
+      top: Math.max(0, normalTop - stickyTop),
+      bottom: nativeParam.bottom
+    };
+  };
+
+  let resizeFrame;
+  const refreshAffix = () => {
+    if (!window.Affix || !Affix.element) return;
+    const previousTop = Affix.element.getBoundingClientRect().top;
+    Affix.element.style.top = '';
+    // Recalculate from a normal affixed state. Setting `affixed` to null
+    // makes NexT's initializer use the whole viewport as collider height;
+    // on short index pages that incorrectly selects affix-bottom and sends
+    // the overview/avatar card to the end of the document.
+    Affix.element.classList.remove('affix-top', 'affix-bottom');
+    Affix.element.classList.add('affix');
+    Affix.affixed = false;
+    Affix.unpin = null;
+    Affix.pinnedOffset = null;
+    Affix.offset = NexT.utils.getAffixParam();
+    Affix.checkPosition();
+
+    // Changing header visibility can move the affix threshold across the
+    // current scroll position. Smooth that class switch instead of jumping
+    // between the natural and fixed positions.
+    const nextTop = Affix.element.getBoundingClientRect().top;
+    const delta = previousTop - nextTop;
+    if (Math.abs(delta) > .5 && Affix.element.animate) {
+      if (Affix.element.tocAlignAnimation) Affix.element.tocAlignAnimation.cancel();
+      Affix.element.tocAlignAnimation = Affix.element.animate([
+        { transform: 'translateY(' + delta + 'px)' },
+        { transform: 'translateY(0)' }
+      ], {
+        duration: 300,
+        easing: 'ease'
+      });
+    }
+  };
+  const scheduleRefresh = () => {
+    window.cancelAnimationFrame(resizeFrame);
+    resizeFrame = window.requestAnimationFrame(refreshAffix);
+  };
+
+  window.addEventListener('load', scheduleRefresh, { once: true });
+  window.addEventListener('resize', scheduleRefresh);
+  window.addEventListener('header:heightchange', scheduleRefresh);
+  window.addEventListener('header:visibilitychange', scheduleRefresh);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleRefresh);
+})();
+</script>
+<script src="/js/theme-toggle.js"></script>
+<script src="/js/menu-dropdown.js"></script>
+
+</body>
+</html>
