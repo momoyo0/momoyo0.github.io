@@ -7,6 +7,8 @@
   // Cosine-style auto-hide: hide while scrolling down, show while scrolling up.
   const THROTTLE = 80;   // ms
   const START_DIST = 80; // px scrolled before hide kicks in
+  const COSINE_TRIGGER_RATIO = .45;
+  const root = document.documentElement;
   const siteNav = document.querySelector('.site-nav');
   const navToggle = document.querySelector('.site-nav-toggle .toggle');
   const brandBar = header.querySelector('.site-brand-container');
@@ -31,7 +33,22 @@
     header.classList.toggle('header-divider-visible', visible);
   }
 
+  // Cosine calls this state `with-background`: the header remains transparent
+  // until the first content section is reached, then its surface and divider
+  // fade in together.  The CSS scopes the visual effect to the Cosine preset.
+  function setHeaderSurfaceVisible(visible) {
+    header.classList.toggle('with-background', visible);
+  }
+
   function syncDividerThreshold() {
+    // Cosine's Navigator uses useScrollTrigger({ triggerDistance: 0.45 }),
+    // i.e. 45% of the viewport, for its `with-background` state.  Keep the
+    // legacy content-start threshold for the default/paper presets.
+    if (root.dataset.background === 'cosine-pink') {
+      dividerThreshold = Math.max(START_DIST, window.innerHeight * COSINE_TRIGGER_RATIO);
+      return;
+    }
+
     const postBody = document.querySelector(
       '.content.posts-expand article.post-block > .post-body[itemprop="articleBody"]'
     );
@@ -56,6 +73,7 @@
     // always reset the hidden state near the top of the page.
     if (menuOpen || y <= START_DIST) {
       setHidden(false);
+      setHeaderSurfaceVisible(false);
       setDividerVisible(false);
       pendingDirection = 0;
       return;
@@ -66,7 +84,12 @@
     } else if (pendingDirection < 0) {
       setHidden(false);
     }
-    setDividerVisible(y >= dividerThreshold && !header.classList.contains('hide'));
+    // Cosine keeps the `with-background` state tied to scroll position, even
+    // while the header is hidden on a downward scroll. When the header is
+    // shown again, its gradient and border are therefore already in place.
+    const surfaceVisible = y > dividerThreshold;
+    setHeaderSurfaceVisible(surfaceVisible);
+    setDividerVisible(surfaceVisible && !header.classList.contains('hide'));
     pendingDirection = 0;
   }
 
@@ -85,6 +108,10 @@
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('background:change', () => {
+    syncDividerThreshold();
+    apply();
+  });
 
   function syncHeaderHeight() {
     const headerInner = header.querySelector('.header-inner');

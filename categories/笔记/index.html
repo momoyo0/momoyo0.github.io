@@ -49,8 +49,23 @@
 <script>
 (() => {
   const storageKey = 'theme';
+  const backgroundStorageKey = 'blog-background';
+  const backgroundValues = ['default', 'paper', 'cosine-pink'];
   const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
   const root = document.documentElement;
+
+  const readBackground = () => {
+    try {
+      const value = window.localStorage.getItem(backgroundStorageKey);
+      return backgroundValues.includes(value) ? value : 'default';
+    } catch (error) {
+      return 'default';
+    }
+  };
+
+  // Apply the saved surface before the first paint so a page refresh does not
+  // briefly flash the default background.
+  root.dataset.background = readBackground();
 
   const readPreference = () => {
     try {
@@ -615,7 +630,74 @@ setInterval("createtime()",250);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleRefresh);
 })();
 </script>
+<div class="background-picker" data-background-picker>
+  <div class="background-picker-actions" data-background-picker-actions>
+    <button
+      class="background-picker-action"
+      type="button"
+      aria-label="打开背景设置"
+      aria-controls="background-picker-panel"
+      aria-expanded="false"
+      title="背景设置"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"></path>
+        <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.7 1.7-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V20h-2.4v-.2a1.7 1.7 0 0 0-1.03-1.56 1.7 1.7 0 0 0-1.88.34l-.06.06-1.7-1.7.06-.06A1.7 1.7 0 0 0 8.46 15 1.7 1.7 0 0 0 6.9 14H6.7v-2.4h.2a1.7 1.7 0 0 0 1.56-1.03 1.7 1.7 0 0 0-.34-1.88l-.06-.06 1.7-1.7.06.06a1.7 1.7 0 0 0 1.88.34A1.7 1.7 0 0 0 12.73 5.8V5.6h2.4v.2a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.88-.34l.06-.06 1.7 1.7-.06.06a1.7 1.7 0 0 0-.34 1.88A1.7 1.7 0 0 0 20.96 11h.2v2.4h-.2A1.7 1.7 0 0 0 19.4 15Z"></path>
+      </svg>
+      <span class="background-picker-label">背景设置</span>
+    </button>
+  </div>
+
+  <button
+    class="background-picker-toggle"
+    type="button"
+    aria-label="收起背景工具"
+    aria-expanded="true"
+    title="收起背景工具"
+  >
+    <span class="background-picker-icon background-picker-icon-magic" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false">
+        <!-- Remix Icon ri:magic-fill, the same icon used by Cosine's FloatingGroup. -->
+        <path fill="currentColor" d="m15.224 15.508l-2.213 4.65a.6.6 0 0 1-.977.155l-3.542-3.739a.6.6 0 0 0-.358-.182l-5.106-.668a.6.6 0 0 1-.45-.881l2.462-4.524a.6.6 0 0 0 .063-.396L4.16 4.86a.6.6 0 0 1 .7-.7l5.062.943a.6.6 0 0 0 .397-.063l4.523-2.46a.6.6 0 0 1 .882.448l.668 5.107a.6.6 0 0 0 .182.357l3.739 3.542a.6.6 0 0 1-.155.977l-4.65 2.213a.6.6 0 0 0-.284.284m.797 1.927l1.414-1.414l4.243 4.242l-1.415 1.415z"></path>
+      </svg>
+    </span>
+    <span class="background-picker-icon background-picker-icon-close" aria-hidden="true" hidden>
+      <svg viewBox="0 0 24 24" focusable="false">
+        <path d="m6 6 12 12M18 6 6 18"></path>
+      </svg>
+    </span>
+    <span class="background-picker-label">背景工具</span>
+  </button>
+
+  <div
+    class="background-picker-panel"
+    id="background-picker-panel"
+    role="dialog"
+    aria-label="背景设置"
+    hidden
+  >
+    <div class="background-picker-heading">
+      <span>选择背景</span>
+      <button class="background-picker-close" type="button" aria-label="关闭背景设置">×</button>
+    </div>
+    <div class="background-picker-options" role="group" aria-label="背景预设">
+      <button class="background-picker-option" type="button" data-background-option="default" aria-pressed="false">
+        <span class="background-picker-swatch background-picker-swatch-default" aria-hidden="true"></span>
+        <span>默认</span>
+      </button>
+      <button class="background-picker-option" type="button" data-background-option="paper" aria-pressed="false">
+        <span class="background-picker-swatch background-picker-swatch-paper" aria-hidden="true"></span>
+        <span>纸纹</span>
+      </button>
+      <button class="background-picker-option" type="button" data-background-option="cosine-pink" aria-pressed="false">
+        <span class="background-picker-swatch background-picker-swatch-cosine-pink" aria-hidden="true"></span>
+        <span>粉白</span>
+      </button>
+    </div>
+  </div>
+</div>
 <script src="/js/theme-toggle.js"></script>
+<script src="/js/background-switcher.js"></script>
 <script src="/js/menu-dropdown.js"></script>
 
 </body>
