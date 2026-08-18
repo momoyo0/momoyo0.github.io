@@ -19,7 +19,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"momoyo.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"momoyo.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="桃之夭夭，灼灼其华">
@@ -47,11 +47,14 @@
 
 
 
+
 <script>
 (() => {
   const storageKey = 'theme';
   const backgroundStorageKey = 'blog-background';
+  const cosineArticleStorageKey = 'blog-cosine-article-surface';
   const backgroundValues = ['default', 'paper', 'cosine-pink'];
+  const cosineArticleValues = ['flow', 'solid'];
   const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
   const root = document.documentElement;
 
@@ -64,9 +67,19 @@
     }
   };
 
+  const readCosineArticleSurface = () => {
+    try {
+      const value = window.localStorage.getItem(cosineArticleStorageKey);
+      return cosineArticleValues.includes(value) ? value : 'flow';
+    } catch (error) {
+      return 'flow';
+    }
+  };
+
   // Apply the saved surface before the first paint so a page refresh does not
   // briefly flash the default background.
   root.dataset.background = readBackground();
+  root.dataset.cosineArticleSurface = readCosineArticleSurface();
 
   const readPreference = () => {
     try {
@@ -245,6 +258,14 @@
   </li>
 
 
+              
+  <li class="menu-item menu-item-碎碎念">
+
+    <a href="/moments/" rel="section"><i class="fa fa-comment-dots fa-fw"></i>碎碎念</a>
+
+  </li>
+
+
         </ul>
       </details>
     </li>
@@ -315,7 +336,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/07/27/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84-RSS-%E8%81%9A%E5%90%88%E5%99%A8/" class="post-title-link" itemprop="url">如何搭建自己的 RSS 聚合器</a>
+            <a href="/2026/07/27/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84-RSS-%E8%81%9A%E5%90%88%E5%99%A8/" class="post-title-link" itemprop="url">万物皆可 RSS : 搭建自己的 RSS 聚合器</a>
         </h2>
         <div class="post-meta">
           <span class="post-meta-item">
@@ -331,7 +352,7 @@
                 <i class="far fa-calendar-check"></i>
               </span>
               <span class="post-meta-item-text">更新于</span>
-              <time title="修改时间：2026-08-13 18:35:27" itemprop="dateModified" datetime="2026-08-13T18:35:27+08:00">2026-08-13</time>
+              <time title="修改时间：2026-08-18 20:34:27" itemprop="dateModified" datetime="2026-08-18T20:34:27+08:00">2026-08-18</time>
             </span>
 
         <br>
@@ -429,7 +450,7 @@
                 <i class="far fa-calendar-check"></i>
               </span>
               <span class="post-meta-item-text">更新于</span>
-              <time title="修改时间：2026-08-09 22:12:04" itemprop="dateModified" datetime="2026-08-09T22:12:04+08:00">2026-08-09</time>
+              <time title="修改时间：2026-08-18 20:28:17" itemprop="dateModified" datetime="2026-08-18T20:28:17+08:00">2026-08-18</time>
             </span>
 
         <br>
@@ -438,7 +459,7 @@
               <i class="far fa-file-word"></i>
             </span>
               <span class="post-meta-item-text">本文字数：</span>
-            <span>183</span>
+            <span>401</span>
           </span>
           <span class="post-meta-item" title="阅读时长">
             <span class="post-meta-item-icon">
@@ -458,8 +479,18 @@
 
       
           <h1 id="是第一篇博客"><a href="#是第一篇博客" class="headerlink" title="是第一篇博客"></a>是第一篇博客</h1><p>现在想来，这已经是第三次尝试搭建一个自己的博客了。前面几次由于学业未竟，难以专下心思经营自己心中各种稀奇古怪的想法。不过现在大局已定，也就可以安下心来，好好地静下来写些文章了。</p>
-<p>目前这个站点采用的还是 hexo 驱动下的静态界面，预计咱暑假期间（毕竟有3个月欸）会自己搓一个动态博客，所以现在暂时采用 hexo 的静态方案。</p>
+<p><del>目前这个站点采用的还是 hexo 驱动下的静态界面，预计咱暑假期间（毕竟有3个月欸）会自己搓一个动态博客，所以现在暂时采用 hexo 的静态方案。</del></p>
 <p>先这样吧，之前有什么想写的，再进行更新。</p>
+<hr>
+<p>动态博客仅完成一个框架，然而暑假已经结束了（悲<br>目前仍采用 Hexo 作为博客框架，并在 Next 主题的基础上，做了一小部分的修改。</p>
+<p>本网站在细节打磨上，参照了许多前辈的博客，主要有：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.cosine.ren/">Cosine 的博客</a> </li>
+<li><a target="_blank" rel="noopener" href="https://yfi.moe/">Yfi 的博客</a></li>
+</ul>
+<p>这是 TA 们的 Github repo ，如果你也喜欢这些设计，请为 TA 们的仓库点个 star 哦~</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/cosZone/astro-koharu">https://github.com/cosZone/astro-koharu</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/yy4382/yfi.moe">https://github.com/yy4382/yfi.moe</a></p>
 
       
     </div>
@@ -603,12 +634,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">4k</span>
+    <span title="站点总字数">5k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8 分钟</span>
+    <span title="站点阅读时长">9 分钟</span>
 </div>
   <div class="powered-by">
 <!--由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动 -->
@@ -668,7 +699,6 @@ setInterval("createtime()",250);
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -865,11 +895,19 @@ setInterval("createtime()",250);
         <span>粉白</span>
       </button>
     </div>
+    <div class="background-picker-cosine-surface" data-cosine-article-setting hidden>
+      <span class="background-picker-cosine-surface-label">正文表面</span>
+      <div class="background-picker-segments" role="group" aria-label="粉白主题正文表面">
+        <button type="button" data-cosine-article-option="flow" aria-pressed="false">融合</button>
+        <button type="button" data-cosine-article-option="solid" aria-pressed="false">卡片</button>
+      </div>
+    </div>
   </div>
 </div>
 <script src="/js/theme-toggle.js"></script>
 <script src="/js/background-switcher.js"></script>
 <script src="/js/menu-dropdown.js"></script>
+<script src="/js/image-viewer.js"></script>
 
 </body>
 </html>

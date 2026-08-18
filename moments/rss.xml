@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>碎碎念</title>
+    <link>https://momoyo.dev/moments/</link>
+    <description>记录学习、实验与日常折腾中的短想法</description>
+    <language>zh-CN</language>
+    <atom:link href="https://momoyo.dev/moments/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>今天添加了新功能 Moments</title>
+      <link>https://momoyo.dev/moments/2026/20260818-222035/</link>
+      <guid isPermaLink="true">https://momoyo.dev/moments/2026/20260818-222035/</guid>
+      <pubDate>Tue, 18 Aug 2026 14:20:35 GMT</pubDate>
+      <description><![CDATA[<p>今天添加了新功能 Moments</p>
+<p>原本是打算与 Channel 同步的，但是咱还没有建自己的频道，所以就先采用博客的形式发布啦。</p>
+<p>Moments 功能是对照着 <a href="https://blog.cosine.ren/moments">Cosine 的博客</a> 复刻到 Hexo 的，大佬的设计太强了。<br>这里也贴上仓库链接： <a href="https://github.com/cosZone/astro-koharu">https://github.com/cosZone/astro-koharu</a> ，感谢 Cosine 开源捏！</p>
+]]></description>
+    </item>
+  </channel>
+</rss>

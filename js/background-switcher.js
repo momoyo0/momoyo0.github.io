@@ -11,10 +11,32 @@
   const panel = picker.querySelector('.background-picker-panel');
   const close = picker.querySelector('.background-picker-close');
   const options = Array.from(picker.querySelectorAll('[data-background-option]'));
-  if (!actions || !action || !toggle || !magicIcon || !closeIcon || !panel || options.length === 0) return;
+  const cosineArticleSetting = picker.querySelector('[data-cosine-article-setting]');
+  const cosineArticleOptions = Array.from(picker.querySelectorAll('[data-cosine-article-option]'));
+  if (!actions || !action || !toggle || !magicIcon || !closeIcon || !panel || options.length === 0 || !cosineArticleSetting || cosineArticleOptions.length === 0) return;
 
   const validValues = new Set(['default', 'paper', 'cosine-pink']);
+  const validCosineArticleValues = new Set(['flow', 'solid']);
   const storageKey = 'blog-background';
+  const cosineArticleStorageKey = 'blog-cosine-article-surface';
+
+  const setCosineArticleSurface = (value, persist = true) => {
+    const next = validCosineArticleValues.has(value) ? value : 'flow';
+    root.dataset.cosineArticleSurface = next;
+    cosineArticleOptions.forEach(option => {
+      const active = option.dataset.cosineArticleOption === next;
+      option.setAttribute('aria-pressed', String(active));
+      option.classList.toggle('is-active', active);
+    });
+
+    if (persist) {
+      try {
+        window.localStorage.setItem(cosineArticleStorageKey, next);
+      } catch (error) {
+        // The selected surface still applies for this page if storage is blocked.
+      }
+    }
+  };
 
   const setPanelOpen = (open, restoreFocus = false) => {
     picker.classList.toggle('is-panel-open', open);
@@ -40,6 +62,7 @@
   const setBackground = (value, persist = true) => {
     const next = validValues.has(value) ? value : 'default';
     root.dataset.background = next;
+    cosineArticleSetting.hidden = next !== 'cosine-pink';
     options.forEach(option => {
       const active = option.dataset.backgroundOption === next;
       option.setAttribute('aria-pressed', String(active));
@@ -57,6 +80,10 @@
   };
 
   const current = validValues.has(root.dataset.background) ? root.dataset.background : 'default';
+  const currentCosineArticleSurface = validCosineArticleValues.has(root.dataset.cosineArticleSurface)
+    ? root.dataset.cosineArticleSurface
+    : 'flow';
+  setCosineArticleSurface(currentCosineArticleSurface, false);
   setBackground(current, false);
 
   action.addEventListener('click', () => setPanelOpen(panel.hidden));
@@ -66,6 +93,12 @@
   options.forEach(option => {
     option.addEventListener('click', () => {
       setBackground(option.dataset.backgroundOption || 'default');
+    });
+  });
+
+  cosineArticleOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      setCosineArticleSurface(option.dataset.cosineArticleOption || 'flow');
     });
   });
 
@@ -80,8 +113,8 @@
   });
 
   window.addEventListener('storage', event => {
-    if (event.key !== storageKey) return;
-    setBackground(event.newValue || 'default', false);
+    if (event.key === storageKey) setBackground(event.newValue || 'default', false);
+    if (event.key === cosineArticleStorageKey) setCosineArticleSurface(event.newValue || 'flow', false);
   });
 
   // Cosine's FloatingGroup starts expanded, leaving the settings action
