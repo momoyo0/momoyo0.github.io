@@ -7,13 +7,39 @@
     <language>zh-CN</language>
     <atom:link href="https://momoyo.dev/moments/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>为博客添加了 Waline 评论系统</title>
+      <link>https://momoyo.dev/moments/2026/20260820-203123/</link>
+      <guid isPermaLink="true">https://momoyo.dev/moments/2026/20260820-203123/</guid>
+      <pubDate>Thu, 20 Aug 2026 12:31:23 GMT</pubDate>
+      <description><![CDATA[<p>为博客添加了 Waline 评论系统</p>
+<p>今天阅读一篇关于技术博客不良特征的文章，收益匪浅。<br>由此新添加了「评论区」与「RSS 订阅」的新功能哦~</p>
+<div class="link-preview-block" data-state="success" data-preview-url="https://blog.zhilu.site/2025/unpopular-blog-tech">
+  <a class="link-preview-anchor" href="https://blog.zhilu.site/2025/unpopular-blog-tech" target="_blank" rel="noopener noreferrer" aria-label="谈谈不受欢迎的博客技术特征 | 纸鹿摸鱼处 - blog.zhilu.site">
+    <span class="link-preview-card">
+      <span class="link-preview-copy">
+        <span class="link-preview-domain-row">
+          <svg class="link-preview-site-icon link-preview-icon-link link-preview-domain-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.364 15.536L16.95 14.12l1.414-1.414a5 5 0 0 0-7.071-7.071L9.878 7.05L8.464 5.636l1.414-1.414a7 7 0 0 1 9.9 9.9zm-2.829 2.828l-1.414 1.414a7 7 0 0 1-9.9-9.9l1.415-1.414L7.05 9.88l-1.414 1.414a5 5 0 0 0 7.07 7.071l1.415-1.414zm-.707-10.607l1.415 1.415l-7.072 7.07l-1.414-1.414z"></path></svg>
+          <span class="link-preview-domain">blog.zhilu.site</span>
+        </span>
+        <span class="link-preview-title">谈谈不受欢迎的博客技术特征 | 纸鹿摸鱼处</span>
+        <span class="link-preview-description">从弹窗干扰到服务滥用，文章剖析博客网站「自以为在优化，实则在添堵」的负面技术特征。</span>
+        <span class="link-preview-url"><span>https://blog.zhilu.site/2025/unpopular-blog-tech</span><i class="fa fa-external-link-alt" aria-hidden="true"></i></span>
+      </span>
+      <span class="link-preview-media"><img class="link-preview-image" src="https://assets.zhilu.cyou/cover5/unpopular-blog-tech.webp" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" aria-hidden="true"><span class="link-preview-image-error" hidden aria-hidden="true"><i class="fa fa-image"></i><span>预览图加载失败</span></span></span>
+    </span>
+  </a>
+</div>
+]]></description>
+      <category>blog</category>
+    </item>
+    <item>
       <title>今天添加了新功能 Moments</title>
       <link>https://momoyo.dev/moments/2026/20260818-222035/</link>
       <guid isPermaLink="true">https://momoyo.dev/moments/2026/20260818-222035/</guid>
       <pubDate>Tue, 18 Aug 2026 14:20:35 GMT</pubDate>
       <description><![CDATA[<p>今天添加了新功能 Moments</p>
 <p>原本是打算与 Channel 同步的，但是咱还没有建自己的频道，所以就先采用博客的形式发布啦。</p>
-<p>Moments 功能是对照着 <a href="https://blog.cosine.ren/moments">Cosine 的博客</a> 复刻到 Hexo 的，大佬的设计太强了。<br>这里也贴上仓库链接： <a href="https://github.com/cosZone/astro-koharu">https://github.com/cosZone/astro-koharu</a> ，感谢 Cosine 开源捏！</p>
+<p>Moments 功能是对照着 <a href="https://blog.cosine.ren/moments">Cosine 的博客</a> 复刻到 Hexo 的，大佬的设计太强了。<br>这里也贴上仓库链接： <a href="https://github.com/cosZone/astro-koharu" class="github-repo-link" aria-label="GitHub 仓库 cosZone/astro-koharu"><svg class="link-preview-site-icon link-preview-icon-github github-repo-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.001 2c-5.525 0-10 4.475-10 10a9.99 9.99 0 0 0 6.837 9.488c.5.087.688-.213.688-.476c0-.237-.013-1.024-.013-1.862c-2.512.463-3.162-.612-3.362-1.175c-.113-.288-.6-1.175-1.025-1.413c-.35-.187-.85-.65-.013-.662c.788-.013 1.35.725 1.538 1.025c.9 1.512 2.337 1.087 2.912.825c.088-.65.35-1.087.638-1.337c-2.225-.25-4.55-1.113-4.55-4.938c0-1.088.387-1.987 1.025-2.687c-.1-.25-.45-1.275.1-2.65c0 0 .837-.263 2.75 1.024a9.3 9.3 0 0 1 2.5-.337c.85 0 1.7.112 2.5.337c1.913-1.3 2.75-1.024 2.75-1.024c.55 1.375.2 2.4.1 2.65c.637.7 1.025 1.587 1.025 2.687c0 3.838-2.337 4.688-4.562 4.938c.362.312.675.912.675 1.85c0 1.337-.013 2.412-.013 2.75c0 .262.188.574.688.474A10.02 10.02 0 0 0 22 12c0-5.525-4.475-10-10-10"></path></svg><span class="github-repo-label">cosZone/astro-koharu</span></a> ，感谢 Cosine 开源捏！</p>
 ]]></description>
     </item>
   </channel>

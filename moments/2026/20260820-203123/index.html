@@ -14,25 +14,28 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
-  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"momoyo.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"momoyo.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="桃之夭夭，灼灼其华">
+  <meta name="description" content="为博客添加了 Waline 评论系统 今天阅读一篇关于技术博客不良特征的文章，收益匪浅。由此新添加了「评论区」与「RSS 订阅」的新功能哦~                                               blog.zhilu.site                  谈谈不受欢迎的博客技术特征 | 纸鹿摸鱼处         从弹窗干扰到服务滥用，文章剖析博客网站「">
 <meta property="og:type" content="website">
-<meta property="og:title" content="桃源乡">
-<meta property="og:url" content="https://momoyo.dev/categories/%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/index.html">
+<meta property="og:title" content="为博客添加了 Waline 评论系统">
+<meta property="og:url" content="https://momoyo.dev/moments/2026/20260820-203123/index.html">
 <meta property="og:site_name" content="桃源乡">
-<meta property="og:description" content="桃之夭夭，灼灼其华">
+<meta property="og:description" content="为博客添加了 Waline 评论系统 今天阅读一篇关于技术博客不良特征的文章，收益匪浅。由此新添加了「评论区」与「RSS 订阅」的新功能哦~                                               blog.zhilu.site                  谈谈不受欢迎的博客技术特征 | 纸鹿摸鱼处         从弹窗干扰到服务滥用，文章剖析博客网站「">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://assets.zhilu.cyou/cover5/unpopular-blog-tech.webp">
+<meta property="article:published_time" content="2026-08-20T12:31:23.000Z">
+<meta property="article:modified_time" content="2026-08-20T12:34:23.965Z">
 <meta property="article:author" content="momoyo">
+<meta property="article:tag" content="blog">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://assets.zhilu.cyou/cover5/unpopular-blog-tech.webp">
 
-<link rel="canonical" href="https://momoyo.dev/categories/%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+<link rel="canonical" href="https://momoyo.dev/moments/2026/20260820-203123/">
 
 
 <script id="page-configurations">
@@ -46,6 +49,10 @@
 </script>
 
 
+  <link rel="stylesheet" href="/fonts/ChillRoundFRegular/result.css">
+
+
+  <link rel="alternate" type="application/rss+xml" title="碎碎念 RSS" href="/moments/rss.xml">
 
 
 <script>
@@ -147,7 +154,7 @@
 })();
 </script>
 
-  <title>服务器 分类下的笔记 | 桃源乡</title>
+  <title>为博客添加了 Waline 评论系统 | 桃源乡</title>
   
 
 
@@ -181,7 +188,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -310,37 +317,72 @@
         <div class="content-wrap">
           
 
-          <div class="content taxonomy taxonomy-detail taxonomy-category-detail">
+          <div class="content moments-page moments-message-detail">
             
-  
+  <div class="moments-detail">
   <header class="post-header page-hero">
-    <h1 class="post-title page-hero-title">服务器 分类下的笔记</h1>
+    <h1 class="post-title page-hero-title">碎碎念</h1>
     <div class="post-meta page-hero-meta">
     </div>
   </header>
+</div>
 
+  <div class="post-block moments-panel moments-detail-panel">
+    
 
-  <div class="post-block taxonomy-panel taxonomy-category-panel">
-    <div class="cosine-taxonomy taxonomy-category-post-list">
-      <h2 class="shoka-decoration-circle taxonomy-category-summary group relative px-6 py-5 text-2xl font-bold has-children">
-        <a class="taxonomy-home-link dashed-border" href="/">首页</a>
-        <span class="taxonomy-summary-separator text-muted-foreground">/</span>
-        <span class="taxonomy-category-summary-name text-muted-foreground">服务器</span>
-        <span class="taxonomy-category-summary-label text-muted-foreground">分类</span>
-      </h2>
+  <article class="moments-message-card"
+           >
 
-      <div class="taxonomy-category-content">
-          <div class="category-second-level-container taxonomy-category-posts">
-              <p class="shoka-decoration-circle taxonomy-category-post group relative px-6 py-2 text-base">
-                <span class="taxonomy-category-post-date text-muted-foreground mr-2 text-xs">2026-07-27</span>
-                <a class="taxonomy-category-post-link dashed-border" href="/2026/07/27/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84-RSS-%E8%81%9A%E5%90%88%E5%99%A8/">万物皆可 RSS : 搭建自己的 RSS 聚合器</a>
-              </p>
-          </div>
+    <header class="moments-message-header">
+      <span class="moments-channel-avatar" aria-hidden="true">桃</span>
+      <div class="moments-channel-meta">
+        <a class="moments-channel-title" href="/moments/">桃源乡</a>
+          <span class="moments-channel-username">@momoyo</span>
       </div>
-    </div>
+      <a class="moments-message-time" href="/moments/2026/20260820-203123/" aria-label="永久链接">
+        <time datetime="2026-08-20T20:31:23+08:00">2026-08-20 20:31</time>
+      </a>
+    </header>
+      <div class="moments-message-body" data-collapsible-requested="false"
+           data-expand-label="展开" data-collapse-label="收起">
+        <div id="moments-message-moments-2026-20260820-203123--content" class="moments-message-content post-body" data-message-content>
+          <p>为博客添加了 Waline 评论系统</p>
+<p>今天阅读一篇关于技术博客不良特征的文章，收益匪浅。<br>由此新添加了「评论区」与「RSS 订阅」的新功能哦~</p>
+<div class="link-preview-block" data-state="success" data-preview-url="https://blog.zhilu.site/2025/unpopular-blog-tech">
+  <a class="link-preview-anchor" href="https://blog.zhilu.site/2025/unpopular-blog-tech" target="_blank" rel="noopener noreferrer" aria-label="谈谈不受欢迎的博客技术特征 | 纸鹿摸鱼处 - blog.zhilu.site">
+    <span class="link-preview-card">
+      <span class="link-preview-copy">
+        <span class="link-preview-domain-row">
+          <svg class="link-preview-site-icon link-preview-icon-link link-preview-domain-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.364 15.536L16.95 14.12l1.414-1.414a5 5 0 0 0-7.071-7.071L9.878 7.05L8.464 5.636l1.414-1.414a7 7 0 0 1 9.9 9.9zm-2.829 2.828l-1.414 1.414a7 7 0 0 1-9.9-9.9l1.415-1.414L7.05 9.88l-1.414 1.414a5 5 0 0 0 7.07 7.071l1.415-1.414zm-.707-10.607l1.415 1.415l-7.072 7.07l-1.414-1.414z"></path></svg>
+          <span class="link-preview-domain">blog.zhilu.site</span>
+        </span>
+        <span class="link-preview-title">谈谈不受欢迎的博客技术特征 | 纸鹿摸鱼处</span>
+        <span class="link-preview-description">从弹窗干扰到服务滥用，文章剖析博客网站「自以为在优化，实则在添堵」的负面技术特征。</span>
+        <span class="link-preview-url"><span>https://blog.zhilu.site/2025/unpopular-blog-tech</span><i class="fa fa-external-link-alt" aria-hidden="true"></i></span>
+      </span>
+      <span class="link-preview-media"><img class="link-preview-image" src="https://assets.zhilu.cyou/cover5/unpopular-blog-tech.webp" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" aria-hidden="true"><span class="link-preview-image-error" hidden aria-hidden="true"><i class="fa fa-image"></i><span>预览图加载失败</span></span></span>
+    </span>
+  </a>
+</div>
+
+        </div>
+      </div>
+      <nav class="moments-tags" aria-label="标签">
+        <i class="fa fa-hashtag" aria-hidden="true"></i><span class="moments-tag">blog</span>
+      </nav>
+  </article>
+
+      <nav class="moments-context" aria-label="相邻碎碎念"><span></span>
+          <a class="moments-context-card moments-context-older" href="/moments/2026/20260818-222035/" rel="next">
+            <span class="moments-context-direction">较早一条<i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+            <strong>今天添加了新功能 Moments</strong>
+            <time datetime="2026-08-18T22:20:35+08:00">2026-08-18 22:20</time>
+          </a>
+      </nav>
   </div>
 
   
+<script src="/js/moments.js"></script>
 
 
           </div>
@@ -397,7 +439,7 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="momoyo"
-      src="/images/avatar.png">
+      src="/images/avatar.webp" width="120" height="120" decoding="async">
   <p class="site-author-name" itemprop="name">momoyo</p>
   <div class="site-description" itemprop="description">桃之夭夭，灼灼其华</div>
 </div>
@@ -427,9 +469,12 @@
       <span class="links-of-author-item">
         <a href="mailto:blog@momoyo.dev" title="E-Mail → mailto:blog@momoyo.dev"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="/rss.xml" title="RSS → &#x2F;rss.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
   </div>
   <div class="cc-license motion-element" itemprop="license">
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" width="80" height="15" decoding="async"></a>
   </div>
 
 
@@ -531,14 +576,10 @@ setInterval("createtime()",250);
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
 
 <script src="/js/header-scroll.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
@@ -568,6 +609,105 @@ setInterval("createtime()",250);
   
 
   
+
+<script>
+(() => {
+  'use strict';
+
+  const userOptions = {"serverURL":"https://comments.momoyo.dev","requiredMeta":["nick"],"imageUploader":false,"dark":"html[data-theme='dark']"};
+  const clientUrl = "https://unpkg.com/@waline/client@3.8.0/dist/waline.umd.js";
+  const styleUrl = "https://unpkg.com/@waline/client@3.8.0/dist/waline.css";
+
+  const loadStyle = () => {
+    const existing = document.querySelector('link[data-blog-waline-style]');
+    if (existing) return Promise.resolve();
+
+    return new Promise((resolve, reject) => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = styleUrl;
+      link.dataset.blogWalineStyle = '';
+      link.addEventListener('load', resolve, { once: true });
+      link.addEventListener('error', () => reject(new Error('Unable to load Waline styles')), { once: true });
+      document.head.appendChild(link);
+    });
+  };
+
+  const loadClient = () => {
+    if (window.Waline && typeof window.Waline.init === 'function') return Promise.resolve(window.Waline);
+    if (window.__blogWalineClientPromise) return window.__blogWalineClientPromise;
+
+    window.__blogWalineClientPromise = new Promise((resolve, reject) => {
+      const existing = document.querySelector('script[data-blog-waline-client]');
+      const script = existing || document.createElement('script');
+      const finish = () => {
+        if (window.Waline && typeof window.Waline.init === 'function') resolve(window.Waline);
+        else reject(new Error('Waline client loaded without a global init function'));
+      };
+
+      script.addEventListener('load', finish, { once: true });
+      script.addEventListener('error', () => reject(new Error('Unable to load Waline client')), { once: true });
+      if (!existing) {
+        script.src = clientUrl;
+        script.defer = true;
+        script.dataset.blogWalineClient = '';
+        document.head.appendChild(script);
+      }
+    }).catch(error => {
+      window.__blogWalineClientPromise = null;
+      throw error;
+    });
+
+    return window.__blogWalineClientPromise;
+  };
+
+  const mount = element => Promise.all([loadStyle(), loadClient()]).then(([, Waline]) => {
+    if (!element.isConnected || element.dataset.walineReady === 'true') return;
+
+    if (window.__blogWalineInstance && typeof window.__blogWalineInstance.destroy === 'function') {
+      window.__blogWalineInstance.destroy();
+    }
+
+    const lang = userOptions.lang || document.documentElement.lang || 'zh-CN';
+    window.__blogWalineInstance = Waline.init(Object.assign({
+      requiredMeta: ['nick'],
+      imageUploader: false
+    }, userOptions, {
+      el: element,
+      path: window.location.pathname,
+      lang,
+      dark: userOptions.dark || "html[data-theme='dark']"
+    }));
+    element.dataset.walineReady = 'true';
+  }).catch(error => {
+    element.dataset.walineReady = 'error';
+    console.error('[Waline]', error);
+  });
+
+  const boot = () => {
+    const element = document.querySelector('#waline');
+    if (!element || element.dataset.walineReady === 'true') return;
+    const start = () => mount(element);
+    if (window.NexT && NexT.utils && typeof NexT.utils.loadComments === 'function') {
+      NexT.utils.loadComments(element, start);
+    } else {
+      start();
+    }
+  };
+
+  if (!window.__blogWalineBootstrapInstalled) {
+    window.__blogWalineBootstrapInstalled = true;
+    document.addEventListener('pjax:success', boot);
+    document.addEventListener('page:loaded', boot);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot, { once: true });
+  } else {
+    boot();
+  }
+})();
+</script>
 <script>
 (() => {
   if (!window.NexT || !NexT.utils || typeof NexT.utils.getAffixParam !== 'function') return;
@@ -739,7 +879,20 @@ setInterval("createtime()",250);
 <script src="/js/theme-toggle.js"></script>
 <script src="/js/background-switcher.js"></script>
 <script src="/js/menu-dropdown.js"></script>
-<script src="/js/image-viewer.js"></script>
+<script>
+(() => {
+  const scripts = [];
+  if (document.querySelector('.post-body img:not(.link-preview-image):not(.blog-custom-emoji-image), .moments-media-image')) {
+    scripts.push('/js/image-viewer.js');
+  }
+  if (document.querySelector('.link-preview-card')) scripts.push('/js/link-preview.js');
+  scripts.forEach(src => {
+    const script = document.createElement('script');
+    script.src = src;
+    document.body.appendChild(script);
+  });
+})();
+</script>
 
 </body>
 </html>

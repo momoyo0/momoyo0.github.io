@@ -14,12 +14,10 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
-  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"momoyo.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"momoyo.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="是第一篇博客现在想来，这已经是第三次尝试搭建一个自己的博客了。前面几次由于学业未竟，难以专下心思经营自己心中各种稀奇古怪的想法。不过现在大局已定，也就可以安下心来，好好地静下来写些文章了。 目前这个站点采用的还是 hexo 驱动下的静态界面，预计咱暑假期间（毕竟有3个月欸）会自己搓一个动态博客，所以现在暂时采用 hexo 的静态方案。 先这样吧，之前有什么想写的，再进行更新。  动态博客仅完成一个">
@@ -29,10 +27,13 @@
 <meta property="og:site_name" content="桃源乡">
 <meta property="og:description" content="是第一篇博客现在想来，这已经是第三次尝试搭建一个自己的博客了。前面几次由于学业未竟，难以专下心思经营自己心中各种稀奇古怪的想法。不过现在大局已定，也就可以安下心来，好好地静下来写些文章了。 目前这个站点采用的还是 hexo 驱动下的静态界面，预计咱暑假期间（毕竟有3个月欸）会自己搓一个动态博客，所以现在暂时采用 hexo 的静态方案。 先这样吧，之前有什么想写的，再进行更新。  动态博客仅完成一个">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://opengraph.githubassets.com/cc826c3abfd6836b1df6075c654175895c620d3376109ab25d2dbc485708666c/cosZone/astro-koharu">
+<meta property="og:image" content="https://opengraph.githubassets.com/8dda049a53293b58815bae00055b01184c2adda64450e00c4aa23f7c7d5f00c0/yy4382/yfi.moe">
 <meta property="article:published_time" content="2026-06-13T10:05:38.000Z">
 <meta property="article:modified_time" content="2026-08-18T12:28:17.829Z">
 <meta property="article:author" content="momoyo">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://opengraph.githubassets.com/cc826c3abfd6836b1df6075c654175895c620d3376109ab25d2dbc485708666c/cosZone/astro-koharu">
 
 <link rel="canonical" href="https://momoyo.dev/2026/06/13/MyBlogSetup/">
 
@@ -49,7 +50,6 @@
 
 
   <link rel="stylesheet" href="/fonts/ChillRoundFRegular/result.css">
-  <link rel="stylesheet" href="/fonts/ChillRoundFBold/result.css">
 
 
 
@@ -183,10 +183,11 @@
   </style>
 </noscript>
 
+<link rel="alternate" href="/rss.xml" title="桃源乡" type="application/rss+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -379,7 +380,7 @@
     <link itemprop="mainEntityOfPage" href="https://momoyo.dev/2026/06/13/MyBlogSetup/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.webp">
       <meta itemprop="name" content="momoyo">
       <meta itemprop="description" content="桃之夭夭，灼灼其华">
     </span>
@@ -419,8 +420,38 @@
 <li><a target="_blank" rel="noopener" href="https://yfi.moe/">Yfi 的博客</a></li>
 </ul>
 <p>这是 TA 们的 Github repo ，如果你也喜欢这些设计，请为 TA 们的仓库点个 star 哦~</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/cosZone/astro-koharu">https://github.com/cosZone/astro-koharu</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/yy4382/yfi.moe">https://github.com/yy4382/yfi.moe</a></p>
+<div class="link-preview-block" data-state="success" data-preview-url="https://github.com/cosZone/astro-koharu">
+  <a class="link-preview-anchor" href="https://github.com/cosZone/astro-koharu" target="_blank" rel="noopener noreferrer" aria-label="GitHub - cosZone/astro-koharu: astro-koharu 是一个萌系/二次元/粉蓝配色的 astro 主题博客，灵感来自 Hexo 的 Shoka 主题，加了很多自己的小巧思，性能优越。 - github.com">
+    <span class="link-preview-card">
+      <span class="link-preview-copy">
+        <span class="link-preview-domain-row">
+          <svg class="link-preview-site-icon link-preview-icon-github link-preview-domain-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.001 2c-5.525 0-10 4.475-10 10a9.99 9.99 0 0 0 6.837 9.488c.5.087.688-.213.688-.476c0-.237-.013-1.024-.013-1.862c-2.512.463-3.162-.612-3.362-1.175c-.113-.288-.6-1.175-1.025-1.413c-.35-.187-.85-.65-.013-.662c.788-.013 1.35.725 1.538 1.025c.9 1.512 2.337 1.087 2.912.825c.088-.65.35-1.087.638-1.337c-2.225-.25-4.55-1.113-4.55-4.938c0-1.088.387-1.987 1.025-2.687c-.1-.25-.45-1.275.1-2.65c0 0 .837-.263 2.75 1.024a9.3 9.3 0 0 1 2.5-.337c.85 0 1.7.112 2.5.337c1.913-1.3 2.75-1.024 2.75-1.024c.55 1.375.2 2.4.1 2.65c.637.7 1.025 1.587 1.025 2.687c0 3.838-2.337 4.688-4.562 4.938c.362.312.675.912.675 1.85c0 1.337-.013 2.412-.013 2.75c0 .262.188.574.688.474A10.02 10.02 0 0 0 22 12c0-5.525-4.475-10-10-10"></path></svg>
+          <span class="link-preview-domain">github.com</span>
+        </span>
+        <span class="link-preview-title">GitHub - cosZone/astro-koharu: astro-koharu 是一个萌系/二次元/粉蓝配色的 astro 主题博客，灵感来自 Hexo 的 Shoka 主题，加了很多自己的小巧思，性能优越。</span>
+        <span class="link-preview-description">astro-koharu 是一个萌系/二次元/粉蓝配色的 astro 主题博客，灵感来自 Hexo 的 Shoka 主题，加了很多自己的小巧思，性能优越。 - cosZone/astro-koharu</span>
+        <span class="link-preview-url"><span>https://github.com/cosZone/astro-koharu</span><i class="fa fa-external-link-alt" aria-hidden="true"></i></span>
+      </span>
+      <span class="link-preview-media"><img class="link-preview-image" src="https://opengraph.githubassets.com/cc826c3abfd6836b1df6075c654175895c620d3376109ab25d2dbc485708666c/cosZone/astro-koharu" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" aria-hidden="true"><span class="link-preview-image-error" hidden aria-hidden="true"><i class="fa fa-image"></i><span>预览图加载失败</span></span></span>
+    </span>
+  </a>
+</div>
+<div class="link-preview-block" data-state="success" data-preview-url="https://github.com/yy4382/yfi.moe">
+  <a class="link-preview-anchor" href="https://github.com/yy4382/yfi.moe" target="_blank" rel="noopener noreferrer" aria-label="GitHub - yy4382/yfi.moe: Source of my personal site. - github.com">
+    <span class="link-preview-card">
+      <span class="link-preview-copy">
+        <span class="link-preview-domain-row">
+          <svg class="link-preview-site-icon link-preview-icon-github link-preview-domain-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.001 2c-5.525 0-10 4.475-10 10a9.99 9.99 0 0 0 6.837 9.488c.5.087.688-.213.688-.476c0-.237-.013-1.024-.013-1.862c-2.512.463-3.162-.612-3.362-1.175c-.113-.288-.6-1.175-1.025-1.413c-.35-.187-.85-.65-.013-.662c.788-.013 1.35.725 1.538 1.025c.9 1.512 2.337 1.087 2.912.825c.088-.65.35-1.087.638-1.337c-2.225-.25-4.55-1.113-4.55-4.938c0-1.088.387-1.987 1.025-2.687c-.1-.25-.45-1.275.1-2.65c0 0 .837-.263 2.75 1.024a9.3 9.3 0 0 1 2.5-.337c.85 0 1.7.112 2.5.337c1.913-1.3 2.75-1.024 2.75-1.024c.55 1.375.2 2.4.1 2.65c.637.7 1.025 1.587 1.025 2.687c0 3.838-2.337 4.688-4.562 4.938c.362.312.675.912.675 1.85c0 1.337-.013 2.412-.013 2.75c0 .262.188.574.688.474A10.02 10.02 0 0 0 22 12c0-5.525-4.475-10-10-10"></path></svg>
+          <span class="link-preview-domain">github.com</span>
+        </span>
+        <span class="link-preview-title">GitHub - yy4382/yfi.moe: Source of my personal site.</span>
+        <span class="link-preview-description">Source of my personal site. Contribute to yy4382/yfi.moe development by creating an account on GitHub.</span>
+        <span class="link-preview-url"><span>https://github.com/yy4382/yfi.moe</span><i class="fa fa-external-link-alt" aria-hidden="true"></i></span>
+      </span>
+      <span class="link-preview-media"><img class="link-preview-image" src="https://opengraph.githubassets.com/8dda049a53293b58815bae00055b01184c2adda64450e00c4aa23f7c7d5f00c0/yy4382/yfi.moe" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" aria-hidden="true"><span class="link-preview-image-error" hidden aria-hidden="true"><i class="fa fa-image"></i><span>预览图加载失败</span></span></span>
+    </span>
+  </a>
+</div>
 
     </div>
 
@@ -454,7 +485,7 @@
     <div class="post-nav">
       <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2026/07/27/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84-RSS-%E8%81%9A%E5%90%88%E5%99%A8/" rel="next" title="万物皆可 RSS : 搭建自己的 RSS 聚合器">
+    <a href="/2026/07/27/rsshub-with-miniflux/" rel="next" title="万物皆可 RSS : 搭建自己的 RSS 聚合器">
       万物皆可 RSS : 搭建自己的 RSS 聚合器 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -470,6 +501,11 @@
 
           </div>
           
+    
+<div class="comments waline-comments-shell">
+  <p class="waline-comments-prompt">喜欢的话，留下你的评论吧～</p>
+  <div id="waline"></div>
+</div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -523,7 +559,7 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="momoyo"
-      src="/images/avatar.png">
+      src="/images/avatar.webp" width="120" height="120" decoding="async">
   <p class="site-author-name" itemprop="name">momoyo</p>
   <div class="site-description" itemprop="description">桃之夭夭，灼灼其华</div>
 </div>
@@ -553,9 +589,12 @@
       <span class="links-of-author-item">
         <a href="mailto:blog@momoyo.dev" title="E-Mail → mailto:blog@momoyo.dev"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="/rss.xml" title="RSS → &#x2F;rss.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
   </div>
   <div class="cc-license motion-element" itemprop="license">
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" width="80" height="15" decoding="async"></a>
   </div>
 
 
@@ -657,14 +696,10 @@ setInterval("createtime()",250);
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
 
 <script src="/js/header-scroll.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
@@ -694,6 +729,105 @@ setInterval("createtime()",250);
   
 
   
+
+<script>
+(() => {
+  'use strict';
+
+  const userOptions = {"serverURL":"https://comments.momoyo.dev","requiredMeta":["nick"],"imageUploader":false,"dark":"html[data-theme='dark']"};
+  const clientUrl = "https://unpkg.com/@waline/client@3.8.0/dist/waline.umd.js";
+  const styleUrl = "https://unpkg.com/@waline/client@3.8.0/dist/waline.css";
+
+  const loadStyle = () => {
+    const existing = document.querySelector('link[data-blog-waline-style]');
+    if (existing) return Promise.resolve();
+
+    return new Promise((resolve, reject) => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = styleUrl;
+      link.dataset.blogWalineStyle = '';
+      link.addEventListener('load', resolve, { once: true });
+      link.addEventListener('error', () => reject(new Error('Unable to load Waline styles')), { once: true });
+      document.head.appendChild(link);
+    });
+  };
+
+  const loadClient = () => {
+    if (window.Waline && typeof window.Waline.init === 'function') return Promise.resolve(window.Waline);
+    if (window.__blogWalineClientPromise) return window.__blogWalineClientPromise;
+
+    window.__blogWalineClientPromise = new Promise((resolve, reject) => {
+      const existing = document.querySelector('script[data-blog-waline-client]');
+      const script = existing || document.createElement('script');
+      const finish = () => {
+        if (window.Waline && typeof window.Waline.init === 'function') resolve(window.Waline);
+        else reject(new Error('Waline client loaded without a global init function'));
+      };
+
+      script.addEventListener('load', finish, { once: true });
+      script.addEventListener('error', () => reject(new Error('Unable to load Waline client')), { once: true });
+      if (!existing) {
+        script.src = clientUrl;
+        script.defer = true;
+        script.dataset.blogWalineClient = '';
+        document.head.appendChild(script);
+      }
+    }).catch(error => {
+      window.__blogWalineClientPromise = null;
+      throw error;
+    });
+
+    return window.__blogWalineClientPromise;
+  };
+
+  const mount = element => Promise.all([loadStyle(), loadClient()]).then(([, Waline]) => {
+    if (!element.isConnected || element.dataset.walineReady === 'true') return;
+
+    if (window.__blogWalineInstance && typeof window.__blogWalineInstance.destroy === 'function') {
+      window.__blogWalineInstance.destroy();
+    }
+
+    const lang = userOptions.lang || document.documentElement.lang || 'zh-CN';
+    window.__blogWalineInstance = Waline.init(Object.assign({
+      requiredMeta: ['nick'],
+      imageUploader: false
+    }, userOptions, {
+      el: element,
+      path: window.location.pathname,
+      lang,
+      dark: userOptions.dark || "html[data-theme='dark']"
+    }));
+    element.dataset.walineReady = 'true';
+  }).catch(error => {
+    element.dataset.walineReady = 'error';
+    console.error('[Waline]', error);
+  });
+
+  const boot = () => {
+    const element = document.querySelector('#waline');
+    if (!element || element.dataset.walineReady === 'true') return;
+    const start = () => mount(element);
+    if (window.NexT && NexT.utils && typeof NexT.utils.loadComments === 'function') {
+      NexT.utils.loadComments(element, start);
+    } else {
+      start();
+    }
+  };
+
+  if (!window.__blogWalineBootstrapInstalled) {
+    window.__blogWalineBootstrapInstalled = true;
+    document.addEventListener('pjax:success', boot);
+    document.addEventListener('page:loaded', boot);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot, { once: true });
+  } else {
+    boot();
+  }
+})();
+</script>
 <script>
 (() => {
   if (!window.NexT || !NexT.utils || typeof NexT.utils.getAffixParam !== 'function') return;
@@ -865,7 +999,20 @@ setInterval("createtime()",250);
 <script src="/js/theme-toggle.js"></script>
 <script src="/js/background-switcher.js"></script>
 <script src="/js/menu-dropdown.js"></script>
-<script src="/js/image-viewer.js"></script>
+<script>
+(() => {
+  const scripts = [];
+  if (document.querySelector('.post-body img:not(.link-preview-image):not(.blog-custom-emoji-image), .moments-media-image')) {
+    scripts.push('/js/image-viewer.js');
+  }
+  if (document.querySelector('.link-preview-card')) scripts.push('/js/link-preview.js');
+  scripts.forEach(src => {
+    const script = document.createElement('script');
+    script.src = src;
+    document.body.appendChild(script);
+  });
+})();
+</script>
 
 </body>
 </html>

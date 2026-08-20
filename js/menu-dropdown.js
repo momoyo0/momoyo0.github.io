@@ -1,4 +1,24 @@
 (() => {
+  const mobileNavToggle = document.querySelector('.site-nav-toggle .toggle');
+  const mobileNav = document.querySelector('.site-nav');
+  if (mobileNavToggle && mobileNav) {
+    if (!mobileNav.id) mobileNav.id = 'site-navigation';
+    mobileNavToggle.setAttribute('role', 'button');
+    mobileNavToggle.setAttribute('tabindex', '0');
+    mobileNavToggle.setAttribute('aria-controls', mobileNav.id);
+    mobileNavToggle.setAttribute('aria-expanded', String(mobileNav.classList.contains('site-nav-on')));
+
+    const syncMobileNavState = () => {
+      mobileNavToggle.setAttribute('aria-expanded', String(mobileNav.classList.contains('site-nav-on')));
+    };
+    mobileNavToggle.addEventListener('click', () => window.setTimeout(syncMobileNavState, 0));
+    mobileNavToggle.addEventListener('keydown', event => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      mobileNavToggle.click();
+    });
+  }
+
   const dropdowns = [...document.querySelectorAll('.menu-dropdown')];
   if (!dropdowns.length) return;
   const states = new Map();

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>桃源乡</title>
+    <link>https://momoyo.dev/</link>
+    <atom:link href="https://momoyo.dev/rss.xml" rel="self" type="application/rss+xml"/>
+    <description>桃之夭夭，灼灼其华</description>
+    <language>zh-CN</language>
+    <pubDate>Thu, 20 Aug 2026 11:36:55 GMT</pubDate>
+    <generator>https://hexo.io/</generator>
+    
+    <item>
+      <title>万物皆可 RSS : 搭建自己的 RSS 聚合器</title>
+      <link>https://momoyo.dev/2026/07/27/rsshub-with-miniflux/</link>
+      <guid isPermaLink="true">https://momoyo.dev/2026/07/27/rsshub-with-miniflux/</guid>
+      <pubDate>Mon, 27 Jul 2026 14:03:21 GMT</pubDate>
+      
+      <description>&lt;h2 id=&quot;正文&quot;&gt;&lt;a href=&quot;#正文&quot; class=&quot;headerlink&quot; title=&quot;正文&quot;&gt;&lt;/a&gt;正文&lt;/h2&gt;&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;随着 AI 时代对我们生活的全面渗透，微信公众号、视频号等信息流中标注着 AI生成 字样的内容占比愈来愈多。如此，拥有一个纯净的，内容质量可控的信息流，在AI泛滥的当今，是十分有必要的。由此，笔者在近2周中，在网上检索并整理出一套完整的信息聚合流程。在此记录并分享出来，愿在互联网嘈杂的信息中，保有自己的精神自留地。&lt;/p&gt;
+&lt;blockquote class=&quot;callout callout-warning&quot; data-callout=&quot;warn&quot;&gt;
+&lt;div class=&quot;callout-title&quot;&gt;&lt;span class=&quot;callout-icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;i class=&quot;fa fa-exclamation-triangle fa-fw&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span&gt;写在前面&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;callout-content&quot;&gt;
+&lt;p&gt;本文目前处于暂时搁置状态，如有需要，可移步至其他文章获取搭建教程&lt;/p&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;RSSHub + Miniflux + NewsFlash&lt;/p&gt;</description>
+      
+      
+      <category domain="https://momoyo.dev/categories/note/">笔记</category>
+      
+      <category domain="https://momoyo.dev/categories/note/server/">服务器</category>
+      
+      
+      <category domain="https://momoyo.dev/tags/rss/">rss</category>
+      
+      <category domain="https://momoyo.dev/tags/self-hosted/">自建</category>
+      
+    </item>
+    
+    <item>
+      <title>博客由来</title>
+      <link>https://momoyo.dev/2026/06/13/MyBlogSetup/</link>
+      <guid isPermaLink="true">https://momoyo.dev/2026/06/13/MyBlogSetup/</guid>
+      <pubDate>Sat, 13 Jun 2026 10:05:38 GMT</pubDate>
+      
+      <description>&lt;h1 id=&quot;是第一篇博客&quot;&gt;&lt;a href=&quot;#是第一篇博客&quot; class=&quot;headerlink&quot; title=&quot;是第一篇博客&quot;&gt;&lt;/a&gt;是第一篇博客&lt;/h1&gt;&lt;p&gt;现在想来，这已经是第三次尝试搭建一个自己的博客了。前面几次由于学业未竟，难以专下心思经营自己心中各种稀奇古怪的想法。不过现在大局已定，也就可以安下心来，好好地静下来写些文章了。&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;目前这个站点采用的还是 hexo 驱动下的静态界面，预计咱暑假期间（毕竟有3个月欸）会自己搓一个动态博客，</description>
+      
+      
+      
+    </item>
+    
+  </channel>
+</rss>

@@ -14,29 +14,29 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
-  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"momoyo.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"momoyo.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="正文前言随着 AI 时代对我们生活的全面渗透，微信公众号、视频号等信息流中标注着 AI生成 字样的内容占比愈来愈多。如此，拥有一个纯净的，内容质量可控的信息流，在AI泛滥的当今，是十分有必要的。由此，笔者在近2周中，在网上检索并整理出一套完整的信息聚合流程。在此记录并分享出来，愿在互联网嘈杂的信息中，保有自己的精神自留地。  写在前面  本文目前处于暂时搁置状态，如有需要，可移步至其他文章获取搭建">
 <meta property="og:type" content="article">
 <meta property="og:title" content="万物皆可 RSS : 搭建自己的 RSS 聚合器">
-<meta property="og:url" content="https://momoyo.dev/2026/07/27/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84-RSS-%E8%81%9A%E5%90%88%E5%99%A8/index.html">
+<meta property="og:url" content="https://momoyo.dev/2026/07/27/rsshub-with-miniflux/index.html">
 <meta property="og:site_name" content="桃源乡">
 <meta property="og:description" content="正文前言随着 AI 时代对我们生活的全面渗透，微信公众号、视频号等信息流中标注着 AI生成 字样的内容占比愈来愈多。如此，拥有一个纯净的，内容质量可控的信息流，在AI泛滥的当今，是十分有必要的。由此，笔者在近2周中，在网上检索并整理出一套完整的信息聚合流程。在此记录并分享出来，愿在互联网嘈杂的信息中，保有自己的精神自留地。  写在前面  本文目前处于暂时搁置状态，如有需要，可移步至其他文章获取搭建">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yfi.moe/post/rsshub-miniflux/og.png">
 <meta property="article:published_time" content="2026-07-27T14:03:21.000Z">
-<meta property="article:modified_time" content="2026-08-18T12:34:27.998Z">
+<meta property="article:modified_time" content="2026-08-20T11:36:55.426Z">
 <meta property="article:author" content="momoyo">
 <meta property="article:tag" content="rss">
 <meta property="article:tag" content="自建">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yfi.moe/post/rsshub-miniflux/og.png">
 
-<link rel="canonical" href="https://momoyo.dev/2026/07/27/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84-RSS-%E8%81%9A%E5%90%88%E5%99%A8/">
+<link rel="canonical" href="https://momoyo.dev/2026/07/27/rsshub-with-miniflux/">
 
 
 <script id="page-configurations">
@@ -51,7 +51,6 @@
 
 
   <link rel="stylesheet" href="/fonts/ChillRoundFRegular/result.css">
-  <link rel="stylesheet" href="/fonts/ChillRoundFBold/result.css">
 
 
 
@@ -185,10 +184,11 @@
   </style>
 </noscript>
 
+<link rel="alternate" href="/rss.xml" title="桃源乡" type="application/rss+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -346,7 +346,7 @@
                 <i class="far fa-calendar-check"></i>
               </span>
               <span class="post-meta-item-text">更新于</span>
-              <time title="修改时间：2026-08-18 20:34:27" itemprop="dateModified" datetime="2026-08-18T20:34:27+08:00">2026-08-18</time>
+              <time title="修改时间：2026-08-20 19:36:55" itemprop="dateModified" datetime="2026-08-20T19:36:55+08:00">2026-08-20</time>
             </span>
 
         
@@ -378,10 +378,10 @@
 
 
   <article class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://momoyo.dev/2026/07/27/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84-RSS-%E8%81%9A%E5%90%88%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="https://momoyo.dev/2026/07/27/rsshub-with-miniflux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.webp">
       <meta itemprop="name" content="momoyo">
       <meta itemprop="description" content="桃之夭夭，灼灼其华">
     </span>
@@ -406,16 +406,16 @@
       <a class="post-breadcrumb-link" href="/">首页</a>
     </span>
       <span class="post-breadcrumb-separator" aria-hidden="true"><i class="fa fa-angle-right"></i></span>
-      <a class="post-breadcrumb-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+      <a class="post-breadcrumb-link" href="/categories/note/">笔记</a>
       <span class="post-breadcrumb-separator" aria-hidden="true"><i class="fa fa-angle-right"></i></span>
-      <a class="post-breadcrumb-link is-current" href="/categories/%E7%AC%94%E8%AE%B0/%E6%9C%8D%E5%8A%A1%E5%99%A8/" aria-current="page">服务器</a>
+      <a class="post-breadcrumb-link is-current" href="/categories/note/server/" aria-current="page">服务器</a>
   </div>
 </nav>
   <section class="post-summary" aria-labelledby="post-summary-title">
     <div class="post-summary-heading">
       <span id="post-summary-title" class="post-summary-label">文章摘要</span>
     </div>
-    <div class="post-summary-content" itemprop="description">本文介绍了如何通过 docker-compose 搭建自己的 RSS 信息流，并实现多设备访问</div>
+    <div class="post-summary-content" itemprop="description">本文介绍了如何通过 docker-compose 搭建自己的 RSS 聚合器，并实现信息的多设备访问。</div>
   </section>
 
 
@@ -563,7 +563,22 @@
 <li>Feeeed</li>
 </ul>
 <p>写到一半，发现有同类型的、写的非常不错的博客文章</p>
-<p><a target="_blank" rel="noopener" href="https://yfi.moe/post/rsshub-miniflux">https://yfi.moe/post/rsshub-miniflux</a></p>
+<div class="link-preview-block" data-state="success" data-preview-url="https://yfi.moe/post/rsshub-miniflux">
+  <a class="link-preview-anchor" href="https://yfi.moe/post/rsshub-miniflux" target="_blank" rel="noopener noreferrer" aria-label="完整的 RSS 解决方案：自建 RSSHub 与 Miniflux - yfi.moe">
+    <span class="link-preview-card">
+      <span class="link-preview-copy">
+        <span class="link-preview-domain-row">
+          <svg class="link-preview-site-icon link-preview-icon-link link-preview-domain-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.364 15.536L16.95 14.12l1.414-1.414a5 5 0 0 0-7.071-7.071L9.878 7.05L8.464 5.636l1.414-1.414a7 7 0 0 1 9.9 9.9zm-2.829 2.828l-1.414 1.414a7 7 0 0 1-9.9-9.9l1.415-1.414L7.05 9.88l-1.414 1.414a5 5 0 0 0 7.07 7.071l1.415-1.414zm-.707-10.607l1.415 1.415l-7.072 7.07l-1.414-1.414z"></path></svg>
+          <span class="link-preview-domain">yfi.moe</span>
+        </span>
+        <span class="link-preview-title">完整的 RSS 解决方案：自建 RSSHub 与 Miniflux</span>
+        <span class="link-preview-description">自建 RSSHub 与 Miniflux，并且导入到阅读器中。</span>
+        <span class="link-preview-url"><span>https://yfi.moe/post/rsshub-miniflux</span><i class="fa fa-external-link-alt" aria-hidden="true"></i></span>
+      </span>
+      <span class="link-preview-media"><img class="link-preview-image" src="https://yfi.moe/post/rsshub-miniflux/og.png" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" aria-hidden="true"><span class="link-preview-image-error" hidden aria-hidden="true"><i class="fa fa-image"></i><span>预览图加载失败</span></span></span>
+    </span>
+  </a>
+</div>
 <p>笔者认为自己还需要在精进一些文笔，尤其是博客方面，所以本文暂时搁置，以待后续更新。<br>（我写的真的是又臭又长啊…）</p>
 
     </div>
@@ -580,7 +595,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://momoyo.dev/2026/07/27/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84-RSS-%E8%81%9A%E5%90%88%E5%99%A8/" title="万物皆可 RSS : 搭建自己的 RSS 聚合器">https://momoyo.dev/2026/07/27/如何搭建自己的-RSS-聚合器/</a>
+    <a href="https://momoyo.dev/2026/07/27/rsshub-with-miniflux/" title="万物皆可 RSS : 搭建自己的 RSS 聚合器">https://momoyo.dev/2026/07/27/rsshub-with-miniflux/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -592,7 +607,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/rss/" rel="tag"># rss</a>
-              <a href="/tags/%E8%87%AA%E5%BB%BA/" rel="tag"># 自建</a>
+              <a href="/tags/self-hosted/" rel="tag"># 自建</a>
           </div>
 
         
@@ -618,6 +633,11 @@
 
           </div>
           
+    
+<div class="comments waline-comments-shell">
+  <p class="waline-comments-prompt">喜欢的话，留下你的评论吧～</p>
+  <div id="waline"></div>
+</div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -671,7 +691,7 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="momoyo"
-      src="/images/avatar.png">
+      src="/images/avatar.webp" width="120" height="120" decoding="async">
   <p class="site-author-name" itemprop="name">momoyo</p>
   <div class="site-description" itemprop="description">桃之夭夭，灼灼其华</div>
 </div>
@@ -701,9 +721,12 @@
       <span class="links-of-author-item">
         <a href="mailto:blog@momoyo.dev" title="E-Mail → mailto:blog@momoyo.dev"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="/rss.xml" title="RSS → &#x2F;rss.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
   </div>
   <div class="cc-license motion-element" itemprop="license">
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" width="80" height="15" decoding="async"></a>
   </div>
 
 
@@ -805,14 +828,10 @@ setInterval("createtime()",250);
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
 
 <script src="/js/header-scroll.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
@@ -842,6 +861,105 @@ setInterval("createtime()",250);
   
 
   
+
+<script>
+(() => {
+  'use strict';
+
+  const userOptions = {"serverURL":"https://comments.momoyo.dev","requiredMeta":["nick"],"imageUploader":false,"dark":"html[data-theme='dark']"};
+  const clientUrl = "https://unpkg.com/@waline/client@3.8.0/dist/waline.umd.js";
+  const styleUrl = "https://unpkg.com/@waline/client@3.8.0/dist/waline.css";
+
+  const loadStyle = () => {
+    const existing = document.querySelector('link[data-blog-waline-style]');
+    if (existing) return Promise.resolve();
+
+    return new Promise((resolve, reject) => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = styleUrl;
+      link.dataset.blogWalineStyle = '';
+      link.addEventListener('load', resolve, { once: true });
+      link.addEventListener('error', () => reject(new Error('Unable to load Waline styles')), { once: true });
+      document.head.appendChild(link);
+    });
+  };
+
+  const loadClient = () => {
+    if (window.Waline && typeof window.Waline.init === 'function') return Promise.resolve(window.Waline);
+    if (window.__blogWalineClientPromise) return window.__blogWalineClientPromise;
+
+    window.__blogWalineClientPromise = new Promise((resolve, reject) => {
+      const existing = document.querySelector('script[data-blog-waline-client]');
+      const script = existing || document.createElement('script');
+      const finish = () => {
+        if (window.Waline && typeof window.Waline.init === 'function') resolve(window.Waline);
+        else reject(new Error('Waline client loaded without a global init function'));
+      };
+
+      script.addEventListener('load', finish, { once: true });
+      script.addEventListener('error', () => reject(new Error('Unable to load Waline client')), { once: true });
+      if (!existing) {
+        script.src = clientUrl;
+        script.defer = true;
+        script.dataset.blogWalineClient = '';
+        document.head.appendChild(script);
+      }
+    }).catch(error => {
+      window.__blogWalineClientPromise = null;
+      throw error;
+    });
+
+    return window.__blogWalineClientPromise;
+  };
+
+  const mount = element => Promise.all([loadStyle(), loadClient()]).then(([, Waline]) => {
+    if (!element.isConnected || element.dataset.walineReady === 'true') return;
+
+    if (window.__blogWalineInstance && typeof window.__blogWalineInstance.destroy === 'function') {
+      window.__blogWalineInstance.destroy();
+    }
+
+    const lang = userOptions.lang || document.documentElement.lang || 'zh-CN';
+    window.__blogWalineInstance = Waline.init(Object.assign({
+      requiredMeta: ['nick'],
+      imageUploader: false
+    }, userOptions, {
+      el: element,
+      path: window.location.pathname,
+      lang,
+      dark: userOptions.dark || "html[data-theme='dark']"
+    }));
+    element.dataset.walineReady = 'true';
+  }).catch(error => {
+    element.dataset.walineReady = 'error';
+    console.error('[Waline]', error);
+  });
+
+  const boot = () => {
+    const element = document.querySelector('#waline');
+    if (!element || element.dataset.walineReady === 'true') return;
+    const start = () => mount(element);
+    if (window.NexT && NexT.utils && typeof NexT.utils.loadComments === 'function') {
+      NexT.utils.loadComments(element, start);
+    } else {
+      start();
+    }
+  };
+
+  if (!window.__blogWalineBootstrapInstalled) {
+    window.__blogWalineBootstrapInstalled = true;
+    document.addEventListener('pjax:success', boot);
+    document.addEventListener('page:loaded', boot);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot, { once: true });
+  } else {
+    boot();
+  }
+})();
+</script>
 <script>
 (() => {
   if (!window.NexT || !NexT.utils || typeof NexT.utils.getAffixParam !== 'function') return;
@@ -1013,7 +1131,20 @@ setInterval("createtime()",250);
 <script src="/js/theme-toggle.js"></script>
 <script src="/js/background-switcher.js"></script>
 <script src="/js/menu-dropdown.js"></script>
-<script src="/js/image-viewer.js"></script>
+<script>
+(() => {
+  const scripts = [];
+  if (document.querySelector('.post-body img:not(.link-preview-image):not(.blog-custom-emoji-image), .moments-media-image')) {
+    scripts.push('/js/image-viewer.js');
+  }
+  if (document.querySelector('.link-preview-card')) scripts.push('/js/link-preview.js');
+  scripts.forEach(src => {
+    const script = document.createElement('script');
+    script.src = src;
+    document.body.appendChild(script);
+  });
+})();
+</script>
 
 </body>
 </html>

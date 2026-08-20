@@ -481,7 +481,9 @@
     // Match Cosine's rehype rule: linked images keep their original link and
     // only receive loading hints; pre-existing figures/custom media stay owned
     // by their component rather than being wrapped a second time.
-    if (img.closest('a, figure, pre, .highlight, .moments-media-gallery') || img.classList.contains('moments-media-image')) return;
+    if (img.closest('a, figure, pre, .highlight, .moments-media-gallery, .blog-custom-emoji')
+      || img.classList.contains('moments-media-image')
+      || img.classList.contains('blog-custom-emoji-image')) return;
 
     var wrapper = document.createElement('figure');
     wrapper.className = 'markdown-image-wrapper';
@@ -571,9 +573,6 @@
 
   appendOverlay();
   enhanceAll(document);
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() { enhanceAll(document); }, { once: true });
-  }
 
   window.BlogImageViewer = {
     close: closeLightbox,

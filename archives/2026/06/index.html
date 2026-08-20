@@ -14,12 +14,10 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
-  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"momoyo.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"momoyo.dev","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="桃之夭夭，灼灼其华">
@@ -47,7 +45,6 @@
 
 
   <link rel="stylesheet" href="/fonts/ChillRoundFRegular/result.css">
-  <link rel="stylesheet" href="/fonts/ChillRoundFBold/result.css">
 
 
 
@@ -181,10 +178,11 @@
   </style>
 </noscript>
 
+<link rel="alternate" href="/rss.xml" title="桃源乡" type="application/rss+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -410,7 +408,7 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="momoyo"
-      src="/images/avatar.png">
+      src="/images/avatar.webp" width="120" height="120" decoding="async">
   <p class="site-author-name" itemprop="name">momoyo</p>
   <div class="site-description" itemprop="description">桃之夭夭，灼灼其华</div>
 </div>
@@ -440,9 +438,12 @@
       <span class="links-of-author-item">
         <a href="mailto:blog@momoyo.dev" title="E-Mail → mailto:blog@momoyo.dev"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="/rss.xml" title="RSS → &#x2F;rss.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
   </div>
   <div class="cc-license motion-element" itemprop="license">
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" width="80" height="15" decoding="async"></a>
   </div>
 
 
@@ -544,14 +545,10 @@ setInterval("createtime()",250);
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
 
 <script src="/js/header-scroll.js"></script>
-
-<script src="/js/motion.js"></script>
 
 
 <script src="/js/schemes/pisces.js"></script>
@@ -752,7 +749,20 @@ setInterval("createtime()",250);
 <script src="/js/theme-toggle.js"></script>
 <script src="/js/background-switcher.js"></script>
 <script src="/js/menu-dropdown.js"></script>
-<script src="/js/image-viewer.js"></script>
+<script>
+(() => {
+  const scripts = [];
+  if (document.querySelector('.post-body img:not(.link-preview-image):not(.blog-custom-emoji-image), .moments-media-image')) {
+    scripts.push('/js/image-viewer.js');
+  }
+  if (document.querySelector('.link-preview-card')) scripts.push('/js/link-preview.js');
+  scripts.forEach(src => {
+    const script = document.createElement('script');
+    script.src = src;
+    document.body.appendChild(script);
+  });
+})();
+</script>
 
 </body>
 </html>
